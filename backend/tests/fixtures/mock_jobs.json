@@ -1,0 +1,103 @@
+[
+  {
+    "source": "adzuna",
+    "external_id": "adz-pune-elec-001",
+    "employer_name": "Tata Motors Ltd",
+    "title": "Industrial Electrician - Plant Maintenance",
+    "description": "Looking for experienced Industrial Electricians. Candidate should have sound knowledge of single phase and three phase conduit wiring, panel wiring, MCB and circuit breaker installation, transformer maintenance, and earthing. Experience with PLC troubleshooting and electrical maintenance using multimeter and megger testing is preferred.",
+    "district_name": "Pune",
+    "trade_name": "Electrician",
+    "posted_at": "2026-09-10T08:30:00Z"
+  },
+  {
+    "source": "adzuna",
+    "external_id": "adz-pune-elec-002",
+    "employer_name": "Bharat Forge Limited",
+    "title": "Maintenance Electrician",
+    "description": "Urgent requirement for Electricians in Pune plant. Hands-on experience with three phase motor connections, relay logic, solar panel installation, cable jointing, earthing systems, and MCB distribution boards. Must know how to use digital multimeter and conduct routine electrical maintenance.",
+    "district_name": "Pune",
+    "trade_name": "Electrician",
+    "posted_at": "2026-09-12T10:00:00Z"
+  },
+  {
+    "source": "jooble",
+    "external_id": "jbl-pune-fit-001",
+    "employer_name": "Kirloskar Brothers",
+    "title": "Mechanical Bench Fitter",
+    "description": "Hiring skilled Bench Fitters for heavy machinery assembly. Key responsibilities include lathe operation, drilling, tapping, bench fitting, and precision assembly. Candidate must be proficient in using micrometer, vernier caliper, and maintaining tolerance within specified limits. CNC machine basics is an added advantage.",
+    "district_name": "Pune",
+    "trade_name": "Fitter",
+    "posted_at": "2026-09-08T11:15:00Z"
+  },
+  {
+    "source": "adzuna",
+    "external_id": "adz-pune-fit-002",
+    "employer_name": "Thermax Ltd",
+    "title": "Assembly Fitter and Machinist",
+    "description": "Thermax Pune is hiring assembly fitters. Role entails grinding, filing, pipe fitting, milling, and precision tolerance measurement using vernier caliper and micrometer. Blueprint reading and lathe operation skills required.",
+    "district_name": "Pune",
+    "trade_name": "Fitter",
+    "posted_at": "2026-09-14T09:00:00Z"
+  },
+  {
+    "source": "adzuna",
+    "external_id": "adz-pune-weld-001",
+    "employer_name": "Godrej & Boyce",
+    "title": "Certified TIG / MIG Welder",
+    "description": "Seeking certified Welder with expertise in TIG welding, MIG welding, and SMAW arc welding. Duties include weld joint preparation, selecting shielding gas and electrode, weld inspection, and gas cutting. Knowledge of flux cored welding is a plus.",
+    "district_name": "Pune",
+    "trade_name": "Welder",
+    "posted_at": "2026-09-11T14:20:00Z"
+  },
+  {
+    "source": "jooble",
+    "external_id": "jbl-pune-auto-001",
+    "employer_name": "Mahindra & Mahindra",
+    "title": "Automobile Technician / Diesel Mechanic",
+    "description": "Technicians wanted for vehicle assembly and service bay. Expertise required in engine overhaul, diesel engine maintenance, fuel injector and CRDI system repair, clutch adjustment, brake bleeding, suspension, and diagnostic scan tool operation.",
+    "district_name": "Pune",
+    "trade_name": "Automobile/Diesel Mechanic",
+    "posted_at": "2026-09-13T12:00:00Z"
+  },
+  {
+    "source": "adzuna",
+    "external_id": "adz-pune-copa-001",
+    "employer_name": "Wipro Pune",
+    "title": "COPA Computer Operator & Data Analyst",
+    "description": "Looking for Computer Operator with strong command over MS Office, Excel formulas, Python scripting, SQL database management, HTML/CSS web design, and Tally accounting. Familiarity with operating systems and networking basics required.",
+    "district_name": "Pune",
+    "trade_name": "COPA",
+    "posted_at": "2026-09-15T09:45:00Z"
+  },
+  {
+    "source": "adzuna",
+    "external_id": "adz-beed-elec-001",
+    "employer_name": "MSEDCL Beed Division",
+    "title": "Substation Electrician",
+    "description": "Substation electrical wireman needed for Beed rural feeder maintenance. Required skills: transformer maintenance, earthing, cable jointing, circuit breaker testing, and single phase / three phase distribution lines.",
+    "district_name": "Beed",
+    "trade_name": "Electrician",
+    "posted_at": "2026-09-05T07:30:00Z"
+  },
+  {
+    "source": "jooble",
+    "external_id": "jbl-beed-auto-001",
+    "employer_name": "Swaraj Tractors Service Center",
+    "title": "Tractor Mechanic & Diesel Technician",
+    "description": "Urgent requirement for diesel mechanic in Beed. Responsibilities: agricultural tractor engine overhaul, fuel injector calibration, radiator repair, wheel alignment, and clutch adjustment.",
+    "district_name": "Beed",
+    "trade_name": "Automobile/Diesel Mechanic",
+    "posted_at": "2026-09-09T16:00:00Z"
+  },
+  {
+    "source": "adzuna",
+    "external_id": "adz-beed-copa-001",
+    "employer_name": "District Collectorate Beed",
+    "title": "Data Entry Operator / COPA Assistant",
+    "description": "Hiring DEO with certificate in COPA. Must have proficiency in MS Office, Tally ERP, accounting data entry, basic networking, and operating systems.",
+    "district_name": "Beed",
+    "trade_name": "COPA",
+    "posted_at": "2026-09-14T11:00:00Z"
+  }
+]
+

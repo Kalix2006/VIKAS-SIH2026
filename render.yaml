@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: vikas-backend
+    runtime: python
+    region: oregon
+    plan: starter
+    rootDir: backend
+    buildCommand: "pip install --upgrade pip && pip install -e \".[nlp]\" && python -m spacy download en_core_web_sm"
+    startCommand: "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 2"
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: ENVIRONMENT
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_SECRET_FALLBACK
+        sync: false
+      - key: CORS_ORIGINS
+        value: "https://vikas-workforce.vercel.app,https://vikas.gov.in"
+      - key: GROQ_API_KEY
+        sync: false
+      - key: ADZUNA_APP_ID
+        sync: false
+      - key: ADZUNA_APP_KEY
+        sync: false
+      - key: JOOBLE_API_KEY
+        sync: false
+
