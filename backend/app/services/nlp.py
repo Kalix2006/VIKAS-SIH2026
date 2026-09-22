@@ -17,6 +17,7 @@ from typing import Any, cast
 try:
     import spacy
     from spacy.pipeline import EntityRuler
+
     HAS_NLP = True
 except ImportError:
     HAS_NLP = False
@@ -126,7 +127,9 @@ class NLPService:
     def _get_nlp(self) -> Any:
         if self.nlp is None:
             if not HAS_NLP:
-                raise RuntimeError("NLP dependencies not installed. Install with `pip install .[nlp]`")
+                raise RuntimeError(
+                    "NLP dependencies not installed. Install with `pip install .[nlp]`"
+                )
             self.nlp = spacy.load("en_core_web_sm")
             self._setup_entity_ruler()
         return self.nlp

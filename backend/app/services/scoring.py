@@ -12,6 +12,7 @@ from typing import Any
 try:
     import numpy as np
     from sentence_transformers import SentenceTransformer
+
     HAS_NLP = True
 except ImportError:
     np = None  # type: ignore
@@ -182,7 +183,9 @@ class ScoringService:
     def _get_model(self) -> Any:
         if self.model is None:
             if not HAS_NLP:
-                raise RuntimeError("NLP dependencies not installed. Install with `pip install .[nlp]`")
+                raise RuntimeError(
+                    "NLP dependencies not installed. Install with `pip install .[nlp]`"
+                )
             self.model = SentenceTransformer(self.model_name)
         return self.model
 
