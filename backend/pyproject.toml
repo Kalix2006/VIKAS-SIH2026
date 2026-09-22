@@ -83,8 +83,12 @@ plugins = ["pydantic.mypy"]
 # Ignore missing stubs for third-party libs that don't ship type info
 [[tool.mypy.overrides]]
 module = [
-    "jose.*",
+    "asyncpg.*",
     "passlib.*",
+    "jose.*",
+    "numpy.*",
+    "sentence_transformers.*",
+    "spacy.*"
 ]
 ignore_missing_imports = true
 
