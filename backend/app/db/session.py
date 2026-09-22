@@ -57,8 +57,11 @@ async def set_rls_context(
     """
     # Switch to non-superuser role so PostgreSQL enforces RLS policies
     # (Superusers always bypass RLS regardless of FORCE ROW LEVEL SECURITY)
-    with contextlib.suppress(Exception):
-        await session.execute(text("SET LOCAL ROLE vikas_app"))
+    try:
+        async with session.begin_nested():
+            await session.execute(text("SET LOCAL ROLE vikas_app"))
+    except Exception:
+        pass
 
     # set_config(name, value, is_local=true) is transaction-scoped
     # and properly supports parameterized bindings in PostgreSQL
