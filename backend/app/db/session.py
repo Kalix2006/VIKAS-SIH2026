@@ -3,8 +3,6 @@
 Uses SQLAlchemy 2.0 async API with asyncpg driver.
 """
 
-import contextlib
-
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
