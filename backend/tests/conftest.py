@@ -1,5 +1,6 @@
 """Shared test fixtures for VIKAS backend test suite."""
 
+import asyncio
 import uuid
 from collections.abc import AsyncIterator
 
@@ -25,8 +26,6 @@ from app.models.user import User
 
 # Test database engine using NullPool to prevent asyncpg loop conflicts across tests
 test_db_url = settings.database_url_test or settings.database_url
-
-import asyncio
 
 
 async def _init_vikas_role():
