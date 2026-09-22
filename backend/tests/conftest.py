@@ -5,7 +5,7 @@ from collections.abc import AsyncIterator
 
 import pytest
 from httpx import ASGITransport, AsyncClient
-from sqlalchemy import select
+from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
     async_sessionmaker,
@@ -25,6 +25,33 @@ from app.models.user import User
 
 # Test database engine using NullPool to prevent asyncpg loop conflicts across tests
 test_db_url = settings.database_url_test or settings.database_url
+
+import asyncio
+
+
+async def _init_vikas_role():
+    engine = create_async_engine(test_db_url, poolclass=NullPool)
+    async with engine.connect() as conn:
+        await conn.execution_options(isolation_level="AUTOCOMMIT")
+        try:
+            await conn.execute(text("CREATE ROLE vikas_app NOLOGIN"))
+            await conn.execute(text("GRANT USAGE ON SCHEMA public TO vikas_app"))
+            await conn.execute(
+                text("GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO vikas_app")
+            )
+            await conn.execute(
+                text(
+                    "GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO vikas_app"
+                )
+            )
+            await conn.execute(text("GRANT vikas_app TO current_user"))
+        except Exception:
+            pass
+    await engine.dispose()
+
+
+asyncio.run(_init_vikas_role())
+
 test_engine = create_async_engine(
     test_db_url,
     poolclass=NullPool,
