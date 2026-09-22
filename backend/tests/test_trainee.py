@@ -119,6 +119,8 @@ async def sample_courses(
             status=CourseStatus.ACTIVE,
         )
         db_session.add(course1)
+    else:
+        course1.status = CourseStatus.ACTIVE
 
     # Flagged course (Fitter)
     stmt2 = select(Course).where(
