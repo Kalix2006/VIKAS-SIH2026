@@ -21,8 +21,6 @@ try:
     HAS_NLP = True
 except ImportError:
     HAS_NLP = False
-    spacy = None  # type: ignore
-    EntityRuler = None  # type: ignore
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession

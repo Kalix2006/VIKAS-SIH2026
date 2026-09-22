@@ -15,8 +15,6 @@ try:
 
     HAS_NLP = True
 except ImportError:
-    np = None  # type: ignore
-    SentenceTransformer = None  # type: ignore
     HAS_NLP = False
 
 from app.models.enums import GapType
