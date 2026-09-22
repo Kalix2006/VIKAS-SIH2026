@@ -59,11 +59,11 @@ export function AggregateReadinessView() {
         }
       } catch {
         const fallbackTrades: TradeOption[] = [
-          { id: "e1000000-0000-0000-0000-000000000001", name: "Electrician", nsqf_code: "NSQF-L4-ELE" },
-          { id: "f2000000-0000-0000-0000-000000000002", name: "Fitter", nsqf_code: "NSQF-L4-FIT" },
-          { id: "w3000000-0000-0000-0000-000000000003", name: "Welder", nsqf_code: "NSQF-L4-WLD" },
+          { id: "548294f7-6e6d-4e5c-a8e9-731096bcba67", name: "Electrician", nsqf_code: "NSQF-L4-ELE" },
+          { id: "650e0bf3-0428-4446-a225-74b70f7fe163", name: "Fitter", nsqf_code: "NSQF-L4-FIT" },
+          { id: "74de65d3-982b-4461-b37c-62a46962e879", name: "Welder", nsqf_code: "NSQF-L4-WLD" },
           { id: "a4000000-0000-0000-0000-000000000004", name: "Automobile/Diesel Mechanic", nsqf_code: "MEC/Q0101" },
-          { id: "c5000000-0000-0000-0000-000000000005", name: "COPA", nsqf_code: "NSQF-L4-COP" },
+          { id: "d158509c-0121-49c8-9b34-2e163a850794", name: "COPA", nsqf_code: "NSQF-L4-COP" },
         ];
         setTrades(fallbackTrades);
         if (fallbackTrades[0]) {

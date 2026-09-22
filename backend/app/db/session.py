@@ -20,6 +20,10 @@ engine = create_async_engine(
     echo=False,  # Set True for SQL query logging during development
     pool_size=5,  # Reasonable default for a modular monolith
     max_overflow=10,  # Allow burst connections beyond pool_size
+    connect_args={
+        "prepared_statement_cache_size": 0,
+        "statement_cache_size": 0,
+    },
 )
 
 # Session factory — each request gets its own session via get_db dependency

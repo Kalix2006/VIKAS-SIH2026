@@ -150,15 +150,15 @@ def upgrade() -> None:
     """)
     )
 
+    conn.execute(sa.text("DROP POLICY IF EXISTS rls_alerts_select ON alerts"))
     conn.execute(
         sa.text("""
-        DROP POLICY IF EXISTS rls_alerts_select ON alerts;
         CREATE POLICY rls_alerts_select ON alerts
         FOR SELECT
         USING (
             current_setting('app.current_user_role', true) IN ('planner', 'panel_member', 'institute_admin')
             OR target_id = current_setting('app.current_user_id', true)::uuid
-        );
+        )
     """)
     )
 
