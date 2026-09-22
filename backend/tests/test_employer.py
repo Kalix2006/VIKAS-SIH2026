@@ -319,4 +319,3 @@ async def test_employer_rbac_and_isolation(employer_fixtures):
         list_b = await client.get("/employer/my-validations", headers=f["headers_b"])
         assert list_b.status_code == 200
         assert len(list_b.json()) == 0
-

@@ -98,7 +98,9 @@ async def seed_demo(session: AsyncSession) -> None:
             dist_map[d["name"]] = dist
         else:
             dist_map[d["name"]] = existing
-    print(f"   Districts ready: Pune ({dist_map['Pune'].id}), Beed ({dist_map['Beed'].id})")
+    print(
+        f"   Districts ready: Pune ({dist_map['Pune'].id}), Beed ({dist_map['Beed'].id})"
+    )
 
     # ----------------------------------------------------
     # 2. Trades
@@ -158,17 +160,67 @@ async def seed_demo(session: AsyncSession) -> None:
 
     course_configs = [
         # Pune Courses
-        {"inst": pune_inst, "trade": "Electrician", "seats": 120, "status": CourseStatus.ACTIVE},
-        {"inst": pune_inst, "trade": "Fitter", "seats": 100, "status": CourseStatus.ACTIVE},
-        {"inst": pune_inst, "trade": "Welder", "seats": 60, "status": CourseStatus.ACTIVE},
-        {"inst": pune_inst, "trade": "Automobile/Diesel Mechanic", "seats": 80, "status": CourseStatus.FLAGGED},
-        {"inst": pune_inst, "trade": "COPA", "seats": 90, "status": CourseStatus.FLAGGED},
+        {
+            "inst": pune_inst,
+            "trade": "Electrician",
+            "seats": 120,
+            "status": CourseStatus.ACTIVE,
+        },
+        {
+            "inst": pune_inst,
+            "trade": "Fitter",
+            "seats": 100,
+            "status": CourseStatus.ACTIVE,
+        },
+        {
+            "inst": pune_inst,
+            "trade": "Welder",
+            "seats": 60,
+            "status": CourseStatus.ACTIVE,
+        },
+        {
+            "inst": pune_inst,
+            "trade": "Automobile/Diesel Mechanic",
+            "seats": 80,
+            "status": CourseStatus.FLAGGED,
+        },
+        {
+            "inst": pune_inst,
+            "trade": "COPA",
+            "seats": 90,
+            "status": CourseStatus.FLAGGED,
+        },
         # Beed Courses
-        {"inst": beed_inst, "trade": "Electrician", "seats": 80, "status": CourseStatus.ACTIVE},
-        {"inst": beed_inst, "trade": "Fitter", "seats": 70, "status": CourseStatus.ACTIVE},
-        {"inst": beed_inst, "trade": "Welder", "seats": 50, "status": CourseStatus.FLAGGED},
-        {"inst": beed_inst, "trade": "Automobile/Diesel Mechanic", "seats": 60, "status": CourseStatus.ACTIVE},
-        {"inst": beed_inst, "trade": "COPA", "seats": 50, "status": CourseStatus.ACTIVE},
+        {
+            "inst": beed_inst,
+            "trade": "Electrician",
+            "seats": 80,
+            "status": CourseStatus.ACTIVE,
+        },
+        {
+            "inst": beed_inst,
+            "trade": "Fitter",
+            "seats": 70,
+            "status": CourseStatus.ACTIVE,
+        },
+        {
+            "inst": beed_inst,
+            "trade": "Welder",
+            "seats": 50,
+            "status": CourseStatus.FLAGGED,
+        },
+        {
+            "inst": beed_inst,
+            "trade": "Automobile/Diesel Mechanic",
+            "seats": 60,
+            "status": CourseStatus.ACTIVE,
+        },
+        {
+            "inst": beed_inst,
+            "trade": "COPA",
+            "seats": 50,
+            "status": CourseStatus.ACTIVE,
+        },
     ]
 
     course_map: dict[str, Course] = {}
@@ -300,7 +352,9 @@ async def seed_demo(session: AsyncSession) -> None:
                 pm.panel_role = u.get("panel_role", PanelRoleType.ACADEMIC_EXPERT)
 
         elif u["role"] == UserRole.TRAINEE:
-            tp_stmt = select(TraineeProfile).where(TraineeProfile.user_id == curr_user.id)
+            tp_stmt = select(TraineeProfile).where(
+                TraineeProfile.user_id == curr_user.id
+            )
             tp = (await session.execute(tp_stmt)).scalar_one_or_none()
             enrolled = u.get("enrolled_course")
             if not tp:
@@ -326,7 +380,16 @@ async def seed_demo(session: AsyncSession) -> None:
             "trade": "Electrician",
             "title": "Senior EV Powertrain & Battery Assembly Technician",
             "desc": "Seeking certified technicians with expertise in EV battery pack assembly, high-voltage wiring harnesses, BMS testing, and regenerative braking diagnostics. Chakan industrial area.",
-            "skills": {"extracted": ["EV Battery Assembly", "High Voltage Safety", "BMS Calibration", "Wiring Harness", "CAN Bus"], "count": 5},
+            "skills": {
+                "extracted": [
+                    "EV Battery Assembly",
+                    "High Voltage Safety",
+                    "BMS Calibration",
+                    "Wiring Harness",
+                    "CAN Bus",
+                ],
+                "count": 5,
+            },
             "source": JobSource.ADZUNA,
             "days_ago": 2,
         },
@@ -335,7 +398,16 @@ async def seed_demo(session: AsyncSession) -> None:
             "trade": "Electrician",
             "title": "Industrial Automation & PLC Maintenance Electrician",
             "desc": "Responsible for troubleshooting Siemens and Allen Bradley PLCs, sensor loops, three-phase variable frequency drives (VFDs), and plant power distribution.",
-            "skills": {"extracted": ["PLC Programming", "VFD Drives", "Three-Phase Power", "Ladder Logic", "Sensor Calibration"], "count": 5},
+            "skills": {
+                "extracted": [
+                    "PLC Programming",
+                    "VFD Drives",
+                    "Three-Phase Power",
+                    "Ladder Logic",
+                    "Sensor Calibration",
+                ],
+                "count": 5,
+            },
             "source": JobSource.JOOBLE,
             "days_ago": 4,
         },
@@ -344,7 +416,15 @@ async def seed_demo(session: AsyncSession) -> None:
             "trade": "Electrician",
             "title": "Solar Photovoltaic Installation Technician",
             "desc": "On-site installation and commissioning of rooftop commercial solar plants, inverter synchronization, and net metering wiring.",
-            "skills": {"extracted": ["Solar Inverter Setup", "Net Metering", "Earthing & Surge Protection", "PV Array Testing"], "count": 4},
+            "skills": {
+                "extracted": [
+                    "Solar Inverter Setup",
+                    "Net Metering",
+                    "Earthing & Surge Protection",
+                    "PV Array Testing",
+                ],
+                "count": 4,
+            },
             "source": JobSource.ADZUNA,
             "days_ago": 6,
         },
@@ -354,7 +434,16 @@ async def seed_demo(session: AsyncSession) -> None:
             "trade": "Automobile/Diesel Mechanic",
             "title": "Automotive Diagnostic Specialist (OBD-II & Common Rail)",
             "desc": "Bosch service center looking for mechanics skilled in modern computerized scanning tools, common-rail diesel injection (CRDI), and exhaust aftertreatment (DEF/SCR).",
-            "skills": {"extracted": ["OBD-II Scanning", "CRDI Diagnostics", "SCR/DEF Systems", "Electronic Fuel Injection", "Engine Overhaul"], "count": 5},
+            "skills": {
+                "extracted": [
+                    "OBD-II Scanning",
+                    "CRDI Diagnostics",
+                    "SCR/DEF Systems",
+                    "Electronic Fuel Injection",
+                    "Engine Overhaul",
+                ],
+                "count": 5,
+            },
             "source": JobSource.ADZUNA,
             "days_ago": 3,
         },
@@ -363,7 +452,15 @@ async def seed_demo(session: AsyncSession) -> None:
             "trade": "Automobile/Diesel Mechanic",
             "title": "Commercial Fleet EV Service Technician",
             "desc": "Maintenance of electric buses and light commercial vehicles. Strong focus on motor inverter cooling, brake-by-wire, and telemetry inspection.",
-            "skills": {"extracted": ["Electric Motor Servicing", "Brake-by-Wire", "Thermal Management", "Telemetry Hardware"], "count": 4},
+            "skills": {
+                "extracted": [
+                    "Electric Motor Servicing",
+                    "Brake-by-Wire",
+                    "Thermal Management",
+                    "Telemetry Hardware",
+                ],
+                "count": 4,
+            },
             "source": JobSource.JOOBLE,
             "days_ago": 5,
         },
@@ -373,7 +470,16 @@ async def seed_demo(session: AsyncSession) -> None:
             "trade": "COPA",
             "title": "Junior Python Data Operator & Cloud Assistant",
             "desc": "Role entails writing automated data validation scripts in Python, executing SQL database queries, and exporting daily reporting dashboards to AWS S3.",
-            "skills": {"extracted": ["Python Scripting", "PostgreSQL Queries", "Cloud Storage (AWS S3)", "Data Scrubbing", "Excel Automation"], "count": 5},
+            "skills": {
+                "extracted": [
+                    "Python Scripting",
+                    "PostgreSQL Queries",
+                    "Cloud Storage (AWS S3)",
+                    "Data Scrubbing",
+                    "Excel Automation",
+                ],
+                "count": 5,
+            },
             "source": JobSource.ADZUNA,
             "days_ago": 1,
         },
@@ -382,7 +488,15 @@ async def seed_demo(session: AsyncSession) -> None:
             "trade": "COPA",
             "title": "IT Helpdesk & Network Support Specialist",
             "desc": "Enterprise network maintenance, Active Directory account management, router configuration, and endpoint security patching in Hinjawadi IT Park.",
-            "skills": {"extracted": ["Network Troubleshooting", "Active Directory", "Endpoint Security", "Hardware Diagnosis"], "count": 4},
+            "skills": {
+                "extracted": [
+                    "Network Troubleshooting",
+                    "Active Directory",
+                    "Endpoint Security",
+                    "Hardware Diagnosis",
+                ],
+                "count": 4,
+            },
             "source": JobSource.JOOBLE,
             "days_ago": 3,
         },
@@ -392,7 +506,16 @@ async def seed_demo(session: AsyncSession) -> None:
             "trade": "Welder",
             "title": "TIG / MIG Stainless Steel Pressure Vessel Welder",
             "desc": "Defense and aerospace fabricator requires 6G certified welders for high-precision TIG argon arc welding and MIG pulse welding on SS-316.",
-            "skills": {"extracted": ["TIG Welding (6G)", "MIG Pulse Welding", "Argon Gas Shielding", "NDT Dye Penetrant", "Blueprints"], "count": 5},
+            "skills": {
+                "extracted": [
+                    "TIG Welding (6G)",
+                    "MIG Pulse Welding",
+                    "Argon Gas Shielding",
+                    "NDT Dye Penetrant",
+                    "Blueprints",
+                ],
+                "count": 5,
+            },
             "source": JobSource.ADZUNA,
             "days_ago": 7,
         },
@@ -402,7 +525,15 @@ async def seed_demo(session: AsyncSession) -> None:
             "trade": "Welder",
             "title": "Agricultural Equipment Fabricator & Arc Welder",
             "desc": "Fabrication of tractor trailers, harvesters, and sugarcane transport equipment using heavy shielded metal arc welding (SMAW) and gas cutting.",
-            "skills": {"extracted": ["Shielded Metal Arc (SMAW)", "Oxy-Acetylene Cutting", "Structural Alignment", "Weld Inspection"], "count": 4},
+            "skills": {
+                "extracted": [
+                    "Shielded Metal Arc (SMAW)",
+                    "Oxy-Acetylene Cutting",
+                    "Structural Alignment",
+                    "Weld Inspection",
+                ],
+                "count": 4,
+            },
             "source": JobSource.JOOBLE,
             "days_ago": 4,
         },
@@ -412,7 +543,16 @@ async def seed_demo(session: AsyncSession) -> None:
             "trade": "Fitter",
             "title": "Agro-Processing Plant Mechanical Maintenance Fitter",
             "desc": "Maintenance of sugar mill rollers, hydraulic presses, centrifugal pumps, bearing replacement, and precision shaft alignment.",
-            "skills": {"extracted": ["Hydraulic Systems", "Centrifugal Pumps", "Bearing Mounting", "Shaft Alignment", "Pneumatic Valves"], "count": 5},
+            "skills": {
+                "extracted": [
+                    "Hydraulic Systems",
+                    "Centrifugal Pumps",
+                    "Bearing Mounting",
+                    "Shaft Alignment",
+                    "Pneumatic Valves",
+                ],
+                "count": 5,
+            },
             "source": JobSource.ADZUNA,
             "days_ago": 2,
         },
@@ -422,7 +562,15 @@ async def seed_demo(session: AsyncSession) -> None:
             "trade": "Electrician",
             "title": "Rural Substation & Agricultural Feeder Wireman",
             "desc": "Installation and maintenance of 11kV distribution transformers, capacitor banks, solar pump controllers, and three-phase motor starters.",
-            "skills": {"extracted": ["Transformer Maintenance", "11kV Substation", "Solar Pump Inverters", "Motor Starters"], "count": 4},
+            "skills": {
+                "extracted": [
+                    "Transformer Maintenance",
+                    "11kV Substation",
+                    "Solar Pump Inverters",
+                    "Motor Starters",
+                ],
+                "count": 4,
+            },
             "source": JobSource.JOOBLE,
             "days_ago": 5,
         },
@@ -432,7 +580,15 @@ async def seed_demo(session: AsyncSession) -> None:
             "trade": "Automobile/Diesel Mechanic",
             "title": "Tractor & Heavy Harvester Service Mechanic",
             "desc": "Overhaul of diesel engines, hydrostatic transmission systems, and planetary drive axles on Mahindra and Swaraj tractors.",
-            "skills": {"extracted": ["Diesel Fuel Pumps", "Hydrostatic Transmission", "Hydraulic Lift Repair", "Differential Gearbox"], "count": 4},
+            "skills": {
+                "extracted": [
+                    "Diesel Fuel Pumps",
+                    "Hydrostatic Transmission",
+                    "Hydraulic Lift Repair",
+                    "Differential Gearbox",
+                ],
+                "count": 4,
+            },
             "source": JobSource.ADZUNA,
             "days_ago": 6,
         },
@@ -442,7 +598,15 @@ async def seed_demo(session: AsyncSession) -> None:
             "trade": "COPA",
             "title": "CSC E-Governance Center Operator & Accounts Assistant",
             "desc": "Managing DBT portals, Tally Prime GST filing, biometric authentication systems, and Aadhaar-enabled payments.",
-            "skills": {"extracted": ["Tally Prime GST", "DBT Portal Operation", "Biometric Hardware", "Office Suite"], "count": 4},
+            "skills": {
+                "extracted": [
+                    "Tally Prime GST",
+                    "DBT Portal Operation",
+                    "Biometric Hardware",
+                    "Office Suite",
+                ],
+                "count": 4,
+            },
             "source": JobSource.JOOBLE,
             "days_ago": 8,
         },
@@ -461,7 +625,9 @@ async def seed_demo(session: AsyncSession) -> None:
         )
         session.add(jp)
     await session.flush()
-    print(f"   Seeded {len(job_templates)} job postings with realistic skill signatures.")
+    print(
+        f"   Seeded {len(job_templates)} job postings with realistic skill signatures."
+    )
 
     # ----------------------------------------------------
     # 7. Skill Gaps Across Stages
@@ -484,12 +650,33 @@ async def seed_demo(session: AsyncSession) -> None:
         gap_score=78.5,
         score_breakdown={
             "formula": "0.35 * Posting_Volume_Index + 0.30 * Market_Velocity + 0.20 * Cosine_Distance + 0.15 * Employer_Validation",
-            "posting_volume_index": {"score": 82.0, "weight": 0.35, "label": "Volume Velocity"},
-            "market_velocity": {"score": 88.0, "weight": 0.30, "label": "Demand Acceleration"},
-            "cosine_distance": {"score": 71.5, "weight": 0.20, "label": "Curriculum Distance"},
-            "employer_validation": {"score": 65.0, "weight": 0.15, "label": "Industry Signal Strength"},
+            "posting_volume_index": {
+                "score": 82.0,
+                "weight": 0.35,
+                "label": "Volume Velocity",
+            },
+            "market_velocity": {
+                "score": 88.0,
+                "weight": 0.30,
+                "label": "Demand Acceleration",
+            },
+            "cosine_distance": {
+                "score": 71.5,
+                "weight": 0.20,
+                "label": "Curriculum Distance",
+            },
+            "employer_validation": {
+                "score": 65.0,
+                "weight": 0.15,
+                "label": "Industry Signal Strength",
+            },
             "raw_total": 78.5,
-            "emerging_keywords": ["EV Battery Assembly", "High Voltage Safety", "BMS Calibration", "CAN Bus"],
+            "emerging_keywords": [
+                "EV Battery Assembly",
+                "High Voltage Safety",
+                "BMS Calibration",
+                "CAN Bus",
+            ],
         },
         status=GapStatus.URGENT_ESCALATION,
         detected_at=now - timedelta(days=2),
@@ -532,12 +719,32 @@ async def seed_demo(session: AsyncSession) -> None:
         gap_score=54.2,
         score_breakdown={
             "formula": "0.35 * Posting_Volume_Index + 0.30 * Market_Velocity + 0.20 * Cosine_Distance + 0.15 * Employer_Validation",
-            "posting_volume_index": {"score": 52.0, "weight": 0.35, "label": "Volume Velocity"},
-            "market_velocity": {"score": 50.0, "weight": 0.30, "label": "Demand Acceleration"},
-            "cosine_distance": {"score": 68.0, "weight": 0.20, "label": "Curriculum Distance"},
-            "employer_validation": {"score": 45.0, "weight": 0.15, "label": "Industry Signal Strength"},
+            "posting_volume_index": {
+                "score": 52.0,
+                "weight": 0.35,
+                "label": "Volume Velocity",
+            },
+            "market_velocity": {
+                "score": 50.0,
+                "weight": 0.30,
+                "label": "Demand Acceleration",
+            },
+            "cosine_distance": {
+                "score": 68.0,
+                "weight": 0.20,
+                "label": "Curriculum Distance",
+            },
+            "employer_validation": {
+                "score": 45.0,
+                "weight": 0.15,
+                "label": "Industry Signal Strength",
+            },
             "raw_total": 54.2,
-            "emerging_keywords": ["TIG Shielding", "Robotic Welding", "Stainless Steel Argon"],
+            "emerging_keywords": [
+                "TIG Shielding",
+                "Robotic Welding",
+                "Stainless Steel Argon",
+            ],
         },
         status=GapStatus.PANEL_QUEUE,
         detected_at=now - timedelta(days=4),
@@ -567,12 +774,33 @@ async def seed_demo(session: AsyncSession) -> None:
         gap_score=62.0,
         score_breakdown={
             "formula": "0.35 * Posting_Volume_Index + 0.30 * Market_Velocity + 0.20 * Cosine_Distance + 0.15 * Employer_Validation",
-            "posting_volume_index": {"score": 68.0, "weight": 0.35, "label": "Volume Velocity"},
-            "market_velocity": {"score": 64.0, "weight": 0.30, "label": "Demand Acceleration"},
-            "cosine_distance": {"score": 58.0, "weight": 0.20, "label": "Curriculum Distance"},
-            "employer_validation": {"score": 50.0, "weight": 0.15, "label": "Industry Signal Strength"},
+            "posting_volume_index": {
+                "score": 68.0,
+                "weight": 0.35,
+                "label": "Volume Velocity",
+            },
+            "market_velocity": {
+                "score": 64.0,
+                "weight": 0.30,
+                "label": "Demand Acceleration",
+            },
+            "cosine_distance": {
+                "score": 58.0,
+                "weight": 0.20,
+                "label": "Curriculum Distance",
+            },
+            "employer_validation": {
+                "score": 50.0,
+                "weight": 0.15,
+                "label": "Industry Signal Strength",
+            },
             "raw_total": 62.0,
-            "emerging_keywords": ["Python Scripting", "PostgreSQL Queries", "AWS S3", "Data Validation"],
+            "emerging_keywords": [
+                "Python Scripting",
+                "PostgreSQL Queries",
+                "AWS S3",
+                "Data Validation",
+            ],
         },
         status=GapStatus.APPROVED,
         detected_at=now - timedelta(days=10),
@@ -637,12 +865,32 @@ async def seed_demo(session: AsyncSession) -> None:
         gap_score=71.0,
         score_breakdown={
             "formula": "0.35 * Posting_Volume_Index + 0.30 * Market_Velocity + 0.20 * Cosine_Distance + 0.15 * Employer_Validation",
-            "posting_volume_index": {"score": 74.0, "weight": 0.35, "label": "Volume Velocity"},
-            "market_velocity": {"score": 76.0, "weight": 0.30, "label": "Demand Acceleration"},
-            "cosine_distance": {"score": 65.0, "weight": 0.20, "label": "Curriculum Distance"},
-            "employer_validation": {"score": 60.0, "weight": 0.15, "label": "Industry Signal Strength"},
+            "posting_volume_index": {
+                "score": 74.0,
+                "weight": 0.35,
+                "label": "Volume Velocity",
+            },
+            "market_velocity": {
+                "score": 76.0,
+                "weight": 0.30,
+                "label": "Demand Acceleration",
+            },
+            "cosine_distance": {
+                "score": 65.0,
+                "weight": 0.20,
+                "label": "Curriculum Distance",
+            },
+            "employer_validation": {
+                "score": 60.0,
+                "weight": 0.15,
+                "label": "Industry Signal Strength",
+            },
             "raw_total": 71.0,
-            "emerging_keywords": ["OBD-II Scanning", "CRDI Diagnostics", "Hybrid Powertrain"],
+            "emerging_keywords": [
+                "OBD-II Scanning",
+                "CRDI Diagnostics",
+                "Hybrid Powertrain",
+            ],
         },
         status=GapStatus.APPROVED,
         detected_at=now - timedelta(days=8),
@@ -698,19 +946,41 @@ async def seed_demo(session: AsyncSession) -> None:
         gap_score=46.5,
         score_breakdown={
             "formula": "0.35 * Posting_Volume_Index + 0.30 * Market_Velocity + 0.20 * Cosine_Distance + 0.15 * Employer_Validation",
-            "posting_volume_index": {"score": 45.0, "weight": 0.35, "label": "Volume Velocity"},
-            "market_velocity": {"score": 44.0, "weight": 0.30, "label": "Demand Acceleration"},
-            "cosine_distance": {"score": 52.0, "weight": 0.20, "label": "Curriculum Distance"},
-            "employer_validation": {"score": 45.0, "weight": 0.15, "label": "Industry Signal Strength"},
+            "posting_volume_index": {
+                "score": 45.0,
+                "weight": 0.35,
+                "label": "Volume Velocity",
+            },
+            "market_velocity": {
+                "score": 44.0,
+                "weight": 0.30,
+                "label": "Demand Acceleration",
+            },
+            "cosine_distance": {
+                "score": 52.0,
+                "weight": 0.20,
+                "label": "Curriculum Distance",
+            },
+            "employer_validation": {
+                "score": 45.0,
+                "weight": 0.15,
+                "label": "Industry Signal Strength",
+            },
             "raw_total": 46.5,
-            "emerging_keywords": ["CNC Tool Maintenance", "Hydraulics", "Bearing Alignment"],
+            "emerging_keywords": [
+                "CNC Tool Maintenance",
+                "Hydraulics",
+                "Bearing Alignment",
+            ],
         },
         status=GapStatus.DETECTED,
         detected_at=now - timedelta(days=1),
     )
     session.add(gap_beed_fitter)
 
-    print("   Created 5 skill gaps spanning URGENT, QUEUE, APPROVED, and DETECTED states.")
+    print(
+        "   Created 5 skill gaps spanning URGENT, QUEUE, APPROVED, and DETECTED states."
+    )
 
     # ----------------------------------------------------
     # 8. Employer Validations & Hiring Signals

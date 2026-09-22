@@ -96,12 +96,12 @@ async def test_trainee_cross_district_skill_gaps_blocked_by_rls(
     visible_ids = {g.id for g in visible_gaps}
 
     # Pune gap must be visible; Beed gap MUST NOT be returned by PostgreSQL RLS
-    assert (
-        gap_pune.id in visible_ids
-    ), "Trainee cannot see their own district's skill gap"
-    assert (
-        gap_beed.id not in visible_ids
-    ), "SECURITY VIOLATION: Trainee saw other district's skill gap!"
+    assert gap_pune.id in visible_ids, (
+        "Trainee cannot see their own district's skill gap"
+    )
+    assert gap_beed.id not in visible_ids, (
+        "SECURITY VIOLATION: Trainee saw other district's skill gap!"
+    )
 
 
 @pytest.mark.rls
@@ -167,9 +167,9 @@ async def test_institute_admin_cross_institute_courses_blocked_by_rls(
     visible_ids = {c.id for c in visible_courses}
 
     assert course_pune.id in visible_ids, "Admin cannot see own institute's course"
-    assert (
-        course_beed.id not in visible_ids
-    ), "SECURITY VIOLATION: Admin saw other institute's course!"
+    assert course_beed.id not in visible_ids, (
+        "SECURITY VIOLATION: Admin saw other institute's course!"
+    )
 
 
 @pytest.mark.rls
@@ -214,9 +214,9 @@ async def test_employer_validations_rls_isolation_and_insert_check(
     # 1. emp1 querying validations: should NOT see val2
     stmt = select(EmployerValidation).where(EmployerValidation.id == val2.id)
     res = await db_session.execute(stmt)
-    assert (
-        res.scalar_one_or_none() is None
-    ), "SECURITY VIOLATION: Employer saw another employer's validation!"
+    assert res.scalar_one_or_none() is None, (
+        "SECURITY VIOLATION: Employer saw another employer's validation!"
+    )
 
     # 2. Spoofing insert with emp2's user_id must fail via RLS WITH CHECK
     spoofed_val = EmployerValidation(

@@ -26,9 +26,7 @@ class AuditLog(Base):
     id: Mapped[uuid.UUID] = mapped_column(
         sa.Uuid, primary_key=True, server_default=sa.text("gen_random_uuid()")
     )
-    event_type: Mapped[str] = mapped_column(
-        sa.String(100), nullable=False, index=True
-    )
+    event_type: Mapped[str] = mapped_column(sa.String(100), nullable=False, index=True)
     actor_id: Mapped[uuid.UUID] = mapped_column(
         sa.ForeignKey("users.id", ondelete="RESTRICT"),
         nullable=False,
@@ -36,11 +34,15 @@ class AuditLog(Base):
     )
     resource_type: Mapped[str] = mapped_column(sa.String(100), nullable=False)
     resource_id: Mapped[uuid.UUID] = mapped_column(sa.Uuid, nullable=False)
-    details: Mapped[dict[str, Any]] = mapped_column(JSONB, nullable=False, server_default=sa.text("'{}'::jsonb"))
+    details: Mapped[dict[str, Any]] = mapped_column(
+        JSONB, nullable=False, server_default=sa.text("'{}'::jsonb")
+    )
     created_at: Mapped[datetime] = mapped_column(
-        sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False, index=True
+        sa.DateTime(timezone=True),
+        server_default=sa.text("now()"),
+        nullable=False,
+        index=True,
     )
 
     # Relationships
     actor: Mapped["User"] = relationship()
-

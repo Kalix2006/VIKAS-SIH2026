@@ -22,9 +22,7 @@ limiter = Limiter(
 )
 
 
-def rate_limit_exceeded_handler(
-    request: Request, exc: RateLimitExceeded
-) -> Response:
+def rate_limit_exceeded_handler(request: Request, exc: RateLimitExceeded) -> Response:
     """Return structured RFC 7807 429 response when rate limit is tripped."""
     return JSONResponse(
         status_code=429,
@@ -33,4 +31,3 @@ def rate_limit_exceeded_handler(
             "code": "RATE_LIMIT_EXCEEDED",
         },
     )
-

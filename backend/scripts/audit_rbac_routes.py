@@ -38,7 +38,9 @@ def get_all_api_routes(application: Any) -> list[APIRoute]:
     for r in application.routes:
         if isinstance(r, _IncludedRouter):
             routes.extend(
-                sub_r for sub_r in r.original_router.routes if isinstance(sub_r, APIRoute)
+                sub_r
+                for sub_r in r.original_router.routes
+                if isinstance(sub_r, APIRoute)
             )
         elif isinstance(r, APIRoute):
             routes.append(r)
@@ -144,11 +146,16 @@ def run_audit() -> int:
                 status = "PASS (Authenticated)"
             else:
                 status = "FAIL (Missing auth guard)"
-                failures.append(f"{methods} {path}: Route must require authenticated user")
+                failures.append(
+                    f"{methods} {path}: Route must require authenticated user"
+                )
             expected_desc = "Authenticated"
         elif expected["type"] == "role":
             expected_roles = expected["roles"]
-            if expected_roles.issubset(actual["roles"]) or expected_roles == actual["roles"]:
+            if (
+                expected_roles.issubset(actual["roles"])
+                or expected_roles == actual["roles"]
+            ):
                 status = f"PASS ({', '.join(sorted(actual['roles']))})"
             else:
                 status = f"FAIL (Expected {', '.join(sorted(expected_roles))}, got {', '.join(sorted(actual['roles'])) or 'NONE'})"
@@ -174,4 +181,3 @@ def run_audit() -> int:
 
 if __name__ == "__main__":
     sys.exit(run_audit())
-

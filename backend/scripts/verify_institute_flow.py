@@ -20,39 +20,56 @@ async def setup_test_courses_and_gaps():
     async with async_session_maker() as session:
         # Get Pune and Beed institutes
         pune_inst = (
-            await session.execute(
-                select(Institute).where(Institute.name == "Government ITI Pune")
+            (
+                await session.execute(
+                    select(Institute).where(Institute.name == "Government ITI Pune")
+                )
             )
-        ).scalars().first()
+            .scalars()
+            .first()
+        )
         _beed_inst = (
-            await session.execute(
-                select(Institute).where(Institute.name == "Government ITI Beed")
+            (
+                await session.execute(
+                    select(Institute).where(Institute.name == "Government ITI Beed")
+                )
             )
-        ).scalars().first()
+            .scalars()
+            .first()
+        )
 
         # Get Pune district
         pune_dist = (
-            await session.execute(
-                select(District).where(District.name == "Pune")
-            )
-        ).scalars().first()
+            (await session.execute(select(District).where(District.name == "Pune")))
+            .scalars()
+            .first()
+        )
 
         # Get trades
         fitter = (
-            await session.execute(select(Trade).where(Trade.name == "Fitter"))
-        ).scalars().first()
+            (await session.execute(select(Trade).where(Trade.name == "Fitter")))
+            .scalars()
+            .first()
+        )
         welder = (
-            await session.execute(select(Trade).where(Trade.name == "Welder"))
-        ).scalars().first()
+            (await session.execute(select(Trade).where(Trade.name == "Welder")))
+            .scalars()
+            .first()
+        )
 
         # Ensure a flagged course at Pune ITI
         pune_course = (
-            await session.execute(
-                select(Course).where(
-                    Course.institute_id == pune_inst.id, Course.trade_id == fitter.id
+            (
+                await session.execute(
+                    select(Course).where(
+                        Course.institute_id == pune_inst.id,
+                        Course.trade_id == fitter.id,
+                    )
                 )
             )
-        ).scalars().first()
+            .scalars()
+            .first()
+        )
 
         if not pune_course:
             pune_course = Course(
@@ -66,10 +83,14 @@ async def setup_test_courses_and_gaps():
 
         # Ensure skill gap for Pune course
         pune_gap = (
-            await session.execute(
-                select(SkillGap).where(SkillGap.course_id == pune_course.id)
+            (
+                await session.execute(
+                    select(SkillGap).where(SkillGap.course_id == pune_course.id)
+                )
             )
-        ).scalars().first()
+            .scalars()
+            .first()
+        )
 
         if not pune_gap:
             pune_gap = SkillGap(
@@ -87,10 +108,14 @@ async def setup_test_courses_and_gaps():
 
         # Ensure a course & gap at another institute in Pune (Private ITI Pune)
         other_pune_inst = (
-            await session.execute(
-                select(Institute).where(Institute.name == "Private ITI Pune")
+            (
+                await session.execute(
+                    select(Institute).where(Institute.name == "Private ITI Pune")
+                )
             )
-        ).scalars().first()
+            .scalars()
+            .first()
+        )
         if not other_pune_inst:
             other_pune_inst = Institute(
                 name="Private ITI Pune",
@@ -101,13 +126,17 @@ async def setup_test_courses_and_gaps():
             await session.flush()
 
         other_pune_course = (
-            await session.execute(
-                select(Course).where(
-                    Course.institute_id == other_pune_inst.id,
-                    Course.trade_id == welder.id,
+            (
+                await session.execute(
+                    select(Course).where(
+                        Course.institute_id == other_pune_inst.id,
+                        Course.trade_id == welder.id,
+                    )
                 )
             )
-        ).scalars().first()
+            .scalars()
+            .first()
+        )
         if not other_pune_course:
             other_pune_course = Course(
                 institute_id=other_pune_inst.id,
@@ -119,10 +148,14 @@ async def setup_test_courses_and_gaps():
             await session.flush()
 
         other_pune_gap = (
-            await session.execute(
-                select(SkillGap).where(SkillGap.course_id == other_pune_course.id)
+            (
+                await session.execute(
+                    select(SkillGap).where(SkillGap.course_id == other_pune_course.id)
+                )
             )
-        ).scalars().first()
+            .scalars()
+            .first()
+        )
         if not other_pune_gap:
             other_pune_gap = SkillGap(
                 district_id=pune_dist.id,
@@ -180,11 +213,13 @@ async def run_walkthrough():
             print(
                 f"    • [{f['gap_type'].upper()}] {f['course_name']} (Gap Score: {f['gap_score']}) "
                 f"| Acknowledged: {f['acknowledged']}\n"
-                f"      Diagnosis: \"{f['reason']}\""
+                f'      Diagnosis: "{f["reason"]}"'
             )
 
         # 3. Acknowledge Flag
-        print(f"\n[Step 3] Acknowledging Flag (POST /institute/flags/{pune_gap_id}/acknowledge)...")
+        print(
+            f"\n[Step 3] Acknowledging Flag (POST /institute/flags/{pune_gap_id}/acknowledge)..."
+        )
         ack_resp = await client.post(
             f"/institute/flags/{pune_gap_id}/acknowledge",
             headers=headers,
@@ -192,10 +227,14 @@ async def run_walkthrough():
         assert ack_resp.status_code == 200, ack_resp.text
         ack_data = ack_resp.json()
         print(f" -> Result: {ack_data['message']}")
-        print(f"    Acknowledged at: {ack_data['acknowledged_at']} by: {ack_data['acknowledged_by']}")
+        print(
+            f"    Acknowledged at: {ack_data['acknowledged_at']} by: {ack_data['acknowledged_by']}"
+        )
 
         # 4. Drift Detail Drill-down
-        print(f"\n[Step 4] Fetching Drift Details (GET /institute/flags/{pune_gap_id}/detail)...")
+        print(
+            f"\n[Step 4] Fetching Drift Details (GET /institute/flags/{pune_gap_id}/detail)..."
+        )
         detail_resp = await client.get(
             f"/institute/flags/{pune_gap_id}/detail",
             headers=headers,
@@ -203,27 +242,43 @@ async def run_walkthrough():
         assert detail_resp.status_code == 200, detail_resp.text
         detail = detail_resp.json()
         print(f" -> Course: {detail['course_name']} | Gap Score: {detail['gap_score']}")
-        print(f" -> 6-Period Trend Series Points: {len(detail['score_trend'])} data points")
-        for pt in detail['score_trend'][:3]:
-            print(f"    - {pt['timestamp']}: Gap Score = {pt['gap_score']}, Syllabus Alignment = {pt['similarity_score']}")
-        print(f" -> Drifted/Emerging Skills Demanded: {', '.join(detail['skills_drifted'][:4])}")
-        print(f" -> Standard Syllabus Skills: {', '.join(detail['syllabus_skills'][:4])}")
+        print(
+            f" -> 6-Period Trend Series Points: {len(detail['score_trend'])} data points"
+        )
+        for pt in detail["score_trend"][:3]:
+            print(
+                f"    - {pt['timestamp']}: Gap Score = {pt['gap_score']}, Syllabus Alignment = {pt['similarity_score']}"
+            )
+        print(
+            f" -> Drifted/Emerging Skills Demanded: {', '.join(detail['skills_drifted'][:4])}"
+        )
+        print(
+            f" -> Standard Syllabus Skills: {', '.join(detail['syllabus_skills'][:4])}"
+        )
 
         # 5. Request Trainer Refresher Workshop
-        print(f"\n[Step 5] Requesting Trainer Refresher (POST /institute/flags/{pune_gap_id}/request-trainer-refresher)...")
+        print(
+            f"\n[Step 5] Requesting Trainer Refresher (POST /institute/flags/{pune_gap_id}/request-trainer-refresher)..."
+        )
         refresher_resp = await client.post(
             f"/institute/flags/{pune_gap_id}/request-trainer-refresher",
             headers=headers,
-            json={"notes": "Urgent upskilling requested on CNC machine maintenance and PLC programming."},
+            json={
+                "notes": "Urgent upskilling requested on CNC machine maintenance and PLC programming."
+            },
         )
         assert refresher_resp.status_code == 200, refresher_resp.text
         refresher_data = refresher_resp.json()
-        print(f" -> Refresher Request Created: ID = {refresher_data['id']} | Status = {refresher_data['status']}")
-        print(f"    Notes: \"{refresher_data['notes']}\"")
+        print(
+            f" -> Refresher Request Created: ID = {refresher_data['id']} | Status = {refresher_data['status']}"
+        )
+        print(f'    Notes: "{refresher_data["notes"]}"')
         print("    Notification sent to district planners: True")
 
         # 6. Enrollment vs Demand Comparison
-        print("\n[Step 6] Analyzing Enrollment vs Local Hiring Demand (GET /institute/enrollment-vs-demand)...")
+        print(
+            "\n[Step 6] Analyzing Enrollment vs Local Hiring Demand (GET /institute/enrollment-vs-demand)..."
+        )
         evd_resp = await client.get("/institute/enrollment-vs-demand", headers=headers)
         assert evd_resp.status_code == 200, evd_resp.text
         evd = evd_resp.json()
@@ -236,15 +291,23 @@ async def run_walkthrough():
             )
 
         # 7. Tampering Verification: Attempting to acknowledge another institute's flag
-        print(f"\n[Step 7] Tampering Defense: Attempting cross-institute flag acknowledge ({other_inst_gap_id})...")
+        print(
+            f"\n[Step 7] Tampering Defense: Attempting cross-institute flag acknowledge ({other_inst_gap_id})..."
+        )
         tamper_resp = await client.post(
             f"/institute/flags/{other_inst_gap_id}/acknowledge",
             headers=headers,
         )
-        print(f" -> HTTP Status Code: {tamper_resp.status_code} (Expected: 403 Forbidden)")
-        assert tamper_resp.status_code == 403, f"Expected 403, got {tamper_resp.status_code}"
+        print(
+            f" -> HTTP Status Code: {tamper_resp.status_code} (Expected: 403 Forbidden)"
+        )
+        assert tamper_resp.status_code == 403, (
+            f"Expected 403, got {tamper_resp.status_code}"
+        )
         print(f" -> Security Response: {tamper_resp.json()['detail']}")
-        print(" -> DEFENSE IN DEPTH CONFIRMED: Cross-institute tampering safely blocked.")
+        print(
+            " -> DEFENSE IN DEPTH CONFIRMED: Cross-institute tampering safely blocked."
+        )
 
     print("\n" + "=" * 75)
     print("ALL 7 PHASES OF INSTITUTE ADMIN WORKFLOW VERIFIED SUCCESSFULLY!")

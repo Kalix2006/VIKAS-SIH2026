@@ -38,4 +38,3 @@ async def record_audit_event(
         },
     )
     return entry
-

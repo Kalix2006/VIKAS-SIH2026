@@ -41,8 +41,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 app = FastAPI(
     title="VIKAS API",
     description=(
-        "Viksit India Kaushal Alignment System"
-        " \u2014 Skill Demand-Supply Gap Platform"
+        "Viksit India Kaushal Alignment System \u2014 Skill Demand-Supply Gap Platform"
     ),
     version="0.1.0",
     lifespan=lifespan,

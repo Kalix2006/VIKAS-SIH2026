@@ -44,7 +44,6 @@ async def override_get_db() -> AsyncIterator[AsyncSession]:
         yield session
 
 
-
 # Apply dependency override to app
 app.dependency_overrides[get_db] = override_get_db
 

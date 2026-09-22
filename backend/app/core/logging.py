@@ -64,7 +64,9 @@ logger.propagate = False
 class RequestTracingMiddleware(BaseHTTPMiddleware):
     """Middleware injecting correlation ID (X-Request-ID) and logging latency."""
 
-    async def dispatch(self, request: Request, call_next: Callable[..., Any]) -> Response:
+    async def dispatch(
+        self, request: Request, call_next: Callable[..., Any]
+    ) -> Response:
         req_id = request.headers.get("X-Request-ID") or str(uuid.uuid4())
         request.state.request_id = req_id
         token = request_id_ctx.set(req_id)
@@ -88,4 +90,3 @@ class RequestTracingMiddleware(BaseHTTPMiddleware):
             return response
         finally:
             request_id_ctx.reset(token)
-

@@ -278,7 +278,7 @@ class EmployerService:
                     "You are a technical skills extraction engine for vocational trades in India. "
                     f"The employer is providing hiring requirements or syllabus feedback for trade: {trade_name}. "
                     "Extract technical tools, machine proficiencies, and practical competencies mentioned in the text. "
-                    "Return ONLY a valid JSON array of strings, for example: [\"PLC Ladder Logic\", \"CNC Fixture Setup\"]. "
+                    'Return ONLY a valid JSON array of strings, for example: ["PLC Ladder Logic", "CNC Fixture Setup"]. '
                     "Do NOT include conversational filler, markdown fences, or explanation. Just the JSON array."
                 )
 
@@ -306,8 +306,14 @@ class EmployerService:
                             content = re.sub(r"^```[a-zA-Z]*\n", "", content)
                             content = re.sub(r"```$", "", content).strip()
                         extracted = json.loads(content)
-                        if isinstance(extracted, list) and all(isinstance(x, str) for x in extracted):
-                            return [x.strip() for x in extracted if x.strip()], True, False
+                        if isinstance(extracted, list) and all(
+                            isinstance(x, str) for x in extracted
+                        ):
+                            return (
+                                [x.strip() for x in extracted if x.strip()],
+                                True,
+                                False,
+                            )
             except Exception as e:
                 logger.warning(
                     "Groq employer text parsing failed (%s: %s). Activating deterministic fallback.",
@@ -327,7 +333,9 @@ class EmployerService:
 
         # If nothing matched known list, extract key capitalized nouns or phrases
         if not fallback_skills:
-            candidate_phrases = re.findall(r"\b[A-Z][A-Za-z0-9\-/]+(?:\s+[A-Z][A-Za-z0-9\-/]+)*\b", raw_text)
+            candidate_phrases = re.findall(
+                r"\b[A-Z][A-Za-z0-9\-/]+(?:\s+[A-Z][A-Za-z0-9\-/]+)*\b", raw_text
+            )
             fallback_skills = [p for p in candidate_phrases if len(p) > 3][:5]
 
         # Flag for manual review if fallback was used so planners/staff can verify unstructured input
@@ -335,7 +343,10 @@ class EmployerService:
         return fallback_skills, False, needs_review
 
     async def save_validation(
-        self, db: AsyncSession, employer_user_id: uuid.UUID, payload: EmployerValidateRequest
+        self,
+        db: AsyncSession,
+        employer_user_id: uuid.UUID,
+        payload: EmployerValidateRequest,
     ) -> EmployerValidateResponse:
         """Record employer confirmed skills and parse any free-text requirements."""
         trade = (
@@ -356,10 +367,12 @@ class EmployerService:
         needs_manual_review = False
 
         if payload.raw_free_text and payload.raw_free_text.strip():
-            extracted_skills, parsed_by_llm, needs_manual_review = (
-                await self.parse_employer_free_text(
-                    payload.raw_free_text.strip(), trade.name
-                )
+            (
+                extracted_skills,
+                parsed_by_llm,
+                needs_manual_review,
+            ) = await self.parse_employer_free_text(
+                payload.raw_free_text.strip(), trade.name
             )
 
         confirmed_skills_dict = {
@@ -395,7 +408,10 @@ class EmployerService:
         )
 
     async def record_hiring_signal(
-        self, db: AsyncSession, employer_user_id: uuid.UUID, payload: HiringSignalRequest
+        self,
+        db: AsyncSession,
+        employer_user_id: uuid.UUID,
+        payload: HiringSignalRequest,
     ) -> HiringSignalResponse:
         """Record a structured hiring demand intent signal."""
         trade = (
@@ -612,4 +628,3 @@ class EmployerService:
 
 # Singleton instance
 employer_service = EmployerService()
-

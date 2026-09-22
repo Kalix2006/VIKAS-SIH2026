@@ -45,7 +45,12 @@ async def run_walkthrough():
         for c in courses:
             raw_scores = [
                 k
-                for k in ["gap_score", "nlp_confidence", "similarity", "score_breakdown"]
+                for k in [
+                    "gap_score",
+                    "nlp_confidence",
+                    "similarity",
+                    "score_breakdown",
+                ]
                 if k in c
             ]
             assert len(raw_scores) == 0, f"Raw score leaked to trainee: {raw_scores}"
@@ -56,9 +61,7 @@ async def run_walkthrough():
             if c["status"] in ("flagged", "obsolete") and not flagged_course_id:
                 flagged_course_id = c["id"]
 
-        print(
-            " -> AUDIT PASSED: Zero raw numeric scores exposed in course response."
-        )
+        print(" -> AUDIT PASSED: Zero raw numeric scores exposed in course response.")
 
         # 3. Alternatives View for Flagged Course
         if flagged_course_id:
@@ -71,7 +74,7 @@ async def run_walkthrough():
             )
             assert alt_resp.status_code == 200
             alt_data = alt_resp.json()
-            print(f" -> Guidance Note: \"{alt_data['guidance_message']}\"")
+            print(f' -> Guidance Note: "{alt_data["guidance_message"]}"')
             print(
                 f" -> Recommended Alternatives ({len(alt_data['alternatives'])} courses):"
             )
@@ -101,8 +104,10 @@ async def run_walkthrough():
 
         # 5. Grounded Chat Assistant
         print("\n[Step 5] Testing Grounded Chat Assistant (POST /trainee/chat)...")
-        chat_query = "What electrician training courses and seats are available in Pune?"
-        print(f" -> Question: \"{chat_query}\"")
+        chat_query = (
+            "What electrician training courses and seats are available in Pune?"
+        )
+        print(f' -> Question: "{chat_query}"')
         chat_resp = await client.post(
             "/trainee/chat",
             headers=headers,
@@ -110,7 +115,7 @@ async def run_walkthrough():
         )
         assert chat_resp.status_code == 200
         chat_data = chat_resp.json()
-        print(f" -> Assistant Reply: \"{chat_data['reply']}\"")
+        print(f' -> Assistant Reply: "{chat_data["reply"]}"')
         print(
             f" -> Provenance: District={chat_data['grounded_district']} | Courses Grounded={chat_data['grounded_courses_count']} | Fallback Used={chat_data['fallback_used']}"
         )

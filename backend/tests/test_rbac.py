@@ -95,9 +95,9 @@ async def test_each_role_allowed_on_own_endpoint(
             endpoint,
             headers={"Authorization": f"Bearer {token}"},
         )
-        assert (
-            response.status_code == 200
-        ), f"Role {role.value} failed to access {endpoint}"
+        assert response.status_code == 200, (
+            f"Role {role.value} failed to access {endpoint}"
+        )
         assert response.json()["role"] == role.value
 
 

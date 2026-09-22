@@ -53,7 +53,9 @@ def _build_review_response(review: PanelReview) -> PanelReviewResponse:
         )
         v_name = (
             v.panel_member.user.full_name
-            if v.panel_member and hasattr(v.panel_member, "user") and v.panel_member.user
+            if v.panel_member
+            and hasattr(v.panel_member, "user")
+            and v.panel_member.user
             else None
         )
         votes_resp.append(
@@ -227,7 +229,8 @@ async def get_review_score_breakdown(
 @router.get("/governance", response_model=GovernanceResponse)
 async def get_governance_settings(
     current_user: Annotated[
-        dict[str, Any], Depends(require_role(UserRole.PANEL_MEMBER.value, UserRole.PLANNER.value))
+        dict[str, Any],
+        Depends(require_role(UserRole.PANEL_MEMBER.value, UserRole.PLANNER.value)),
     ],
 ) -> GovernanceResponse:
     """Retrieve current panel governance policies."""
@@ -238,7 +241,8 @@ async def get_governance_settings(
 async def toggle_academic_veto(
     payload: GovernanceToggleRequest,
     current_user: Annotated[
-        dict[str, Any], Depends(require_role(UserRole.PANEL_MEMBER.value, UserRole.PLANNER.value))
+        dict[str, Any],
+        Depends(require_role(UserRole.PANEL_MEMBER.value, UserRole.PLANNER.value)),
     ],
 ) -> GovernanceResponse:
     """Toggle academic expert veto governance policy on/off for evaluation & testing."""

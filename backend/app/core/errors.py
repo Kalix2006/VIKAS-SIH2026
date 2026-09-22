@@ -61,4 +61,3 @@ async def http_exception_handler(request: Request, exc: HTTPException) -> Respon
         },
         headers={"X-Request-ID": req_id},
     )
-

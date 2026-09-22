@@ -13,7 +13,9 @@ async def test_request_id_header_injected_in_all_responses(client: AsyncClient) 
     assert len(response.headers["x-request-id"]) > 10
 
 
-async def test_strict_schema_validation_rejects_extra_fields(client: AsyncClient) -> None:
+async def test_strict_schema_validation_rejects_extra_fields(
+    client: AsyncClient,
+) -> None:
     """Verify Pydantic extra='forbid' rejects unexpected fields with 422."""
     payload = {
         "email": "test@vikas.dev",
@@ -23,7 +25,10 @@ async def test_strict_schema_validation_rejects_extra_fields(client: AsyncClient
     response = await client.post("/auth/login", json=payload)
     assert response.status_code == 422
     data = response.json()
-    assert "extra_forbidden" in str(data) or "extra fields not permitted" in str(data).lower()
+    assert (
+        "extra_forbidden" in str(data)
+        or "extra fields not permitted" in str(data).lower()
+    )
 
 
 async def test_global_exception_handler_sanitizes_errors_in_production() -> None:
@@ -32,9 +37,14 @@ async def test_global_exception_handler_sanitizes_errors_in_production() -> None
         transport=ASGITransport(app=app, raise_app_exceptions=False),
         base_url="http://test",
     ) as ac:
-        with patch.object(settings, "environment", "production"), patch(
-            "app.routers.auth.svc_login",
-            side_effect=Exception("Database syntax error near 'SELECT * FROM secrets'"),
+        with (
+            patch.object(settings, "environment", "production"),
+            patch(
+                "app.routers.auth.svc_login",
+                side_effect=Exception(
+                    "Database syntax error near 'SELECT * FROM secrets'"
+                ),
+            ),
         ):
             err_resp = await ac.post(
                 "/auth/login",
@@ -63,4 +73,6 @@ async def test_auth_login_rate_limiting(client: AsyncClient) -> None:
             data = resp.json()
             assert data["code"] == "RATE_LIMIT_EXCEEDED"
             break
-    assert tripped, "Rate limiter was expected to trigger HTTP 429 within 8 rapid requests"
+    assert tripped, (
+        "Rate limiter was expected to trigger HTTP 429 within 8 rapid requests"
+    )

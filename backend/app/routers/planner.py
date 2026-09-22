@@ -119,11 +119,18 @@ async def get_planner_map(
         ahi, divergence, cat = compute_alignment_health(d_gaps)
 
         active_trades = len({g.trade_id for g in d_gaps})
-        flagged_trades = len({
-            g.trade_id
-            for g in d_gaps
-            if g.status in (GapStatus.DETECTED, GapStatus.PANEL_QUEUE, GapStatus.URGENT_ESCALATION)
-        })
+        flagged_trades = len(
+            {
+                g.trade_id
+                for g in d_gaps
+                if g.status
+                in (
+                    GapStatus.DETECTED,
+                    GapStatus.PANEL_QUEUE,
+                    GapStatus.URGENT_ESCALATION,
+                )
+            }
+        )
         total_vol = sum(g.job_posting_volume for g in d_gaps)
 
         if cat == "Critical Divergence":
@@ -182,9 +189,7 @@ async def get_district_drilldown(
         select(SkillGap)
         .where(SkillGap.district_id == district_id)
         .options(
-            selectinload(SkillGap.flag_annotations).selectinload(
-                FlagAnnotation.planner
-            )
+            selectinload(SkillGap.flag_annotations).selectinload(FlagAnnotation.planner)
         )
     )
     gaps = list((await db.execute(gaps_stmt)).scalars().all())
@@ -215,8 +220,14 @@ async def get_district_drilldown(
             alignment_score = round(max(0.0, 100.0 - gap_score), 1)
             vol = gap.job_posting_volume
             total_district_postings += vol
-            g_type = gap.gap_type.value if hasattr(gap.gap_type, "value") else str(gap.gap_type)
-            g_status = gap.status.value if hasattr(gap.status, "value") else str(gap.status)
+            g_type = (
+                gap.gap_type.value
+                if hasattr(gap.gap_type, "value")
+                else str(gap.gap_type)
+            )
+            g_status = (
+                gap.status.value if hasattr(gap.status, "value") else str(gap.status)
+            )
             gap_id = gap.id
 
             # Trend direction heuristics
@@ -295,10 +306,14 @@ async def get_district_drilldown(
 # =============================================================================
 @router.get("/compare", response_model=PlannerCompareResponse)
 async def compare_districts_for_trade(
-    district_ids: Annotated[str, Query(..., description="Comma-separated IDs of two districts (A,B)")],
+    district_ids: Annotated[
+        str, Query(..., description="Comma-separated IDs of two districts (A,B)")
+    ],
     trade_id: Annotated[uuid.UUID, Query(..., description="ID of trade to compare")],
     db: Annotated[AsyncSession, Depends(get_db)],
-    current_user: Annotated[dict[str, Any], Depends(require_role(UserRole.PLANNER.value))],
+    current_user: Annotated[
+        dict[str, Any], Depends(require_role(UserRole.PLANNER.value))
+    ],
 ) -> PlannerCompareResponse:
     """Compare a single trade across two districts."""
     id_list = [d.strip() for d in district_ids.split(",") if d.strip()]
@@ -336,9 +351,7 @@ async def compare_districts_for_trade(
 
         gap_stmt = (
             select(SkillGap)
-            .where(
-                SkillGap.district_id == dist_id, SkillGap.trade_id == trade_id
-            )
+            .where(SkillGap.district_id == dist_id, SkillGap.trade_id == trade_id)
             .order_by(desc(SkillGap.detected_at))
             .limit(1)
         )
@@ -347,9 +360,7 @@ async def compare_districts_for_trade(
         seats_stmt = (
             select(func.sum(Course.seats_available))
             .join(Institute, Course.institute_id == Institute.id)
-            .where(
-                Institute.district_id == dist_id, Course.trade_id == trade_id
-            )
+            .where(Institute.district_id == dist_id, Course.trade_id == trade_id)
         )
         seats = (await db.execute(seats_stmt)).scalar_one() or 0
 
@@ -381,8 +392,14 @@ async def compare_districts_for_trade(
             gap_score = gap.gap_score
             alignment_score = round(max(0.0, 100.0 - gap_score), 1)
             vol = gap.job_posting_volume
-            g_type = gap.gap_type.value if hasattr(gap.gap_type, "value") else str(gap.gap_type)
-            g_status = gap.status.value if hasattr(gap.status, "value") else str(gap.status)
+            g_type = (
+                gap.gap_type.value
+                if hasattr(gap.gap_type, "value")
+                else str(gap.gap_type)
+            )
+            g_status = (
+                gap.status.value if hasattr(gap.status, "value") else str(gap.status)
+            )
         else:
             gap_score = 0.0
             alignment_score = 100.0
@@ -480,14 +497,20 @@ async def annotate_flag(
     # Record immutable audit log
     await record_audit_event(
         db=db,
-        event_type="PLANNER_OVERRIDE" if payload.override_status else "PLANNER_ANNOTATION",
+        event_type="PLANNER_OVERRIDE"
+        if payload.override_status
+        else "PLANNER_ANNOTATION",
         actor_id=planner_id,
         resource_type="skill_gap",
         resource_id=gap.id,
         details={
             "note": payload.note.strip(),
-            "override_status": payload.override_status.value if payload.override_status else None,
-            "new_gap_status": gap.status.value if hasattr(gap.status, "value") else str(gap.status),
+            "override_status": payload.override_status.value
+            if payload.override_status
+            else None,
+            "new_gap_status": gap.status.value
+            if hasattr(gap.status, "value")
+            else str(gap.status),
         },
     )
 
@@ -523,7 +546,9 @@ async def annotate_flag(
 async def export_capacity_plan(
     district_id: uuid.UUID,
     db: Annotated[AsyncSession, Depends(get_db)],
-    current_user: Annotated[dict[str, Any], Depends(require_role(UserRole.PLANNER.value))],
+    current_user: Annotated[
+        dict[str, Any], Depends(require_role(UserRole.PLANNER.value))
+    ],
     format: str = Query(
         "json", pattern="^(json|csv)$", description="Export format: 'json' or 'csv'"
     ),
@@ -567,13 +592,17 @@ async def export_capacity_plan(
         # 1. Recommended Seat Adjustment
         if ratio >= 2.0:
             seat_adj = min(30, max(10, round(seats * 0.25)))
-            seat_rationale = f"High hiring pressure (ratio {ratio:.1f}x); expand intake capacity."
+            seat_rationale = (
+                f"High hiring pressure (ratio {ratio:.1f}x); expand intake capacity."
+            )
         elif ratio <= 0.4 and seats > 20:
             seat_adj = -max(5, round(seats * 0.2))
             seat_rationale = f"Oversupplied market (ratio {ratio:.1f}x); reduce seats to avoid trainee underemployment."
         else:
             seat_adj = 0
-            seat_rationale = f"Intake capacity aligns with local market hiring (ratio {ratio:.1f}x)."
+            seat_rationale = (
+                f"Intake capacity aligns with local market hiring (ratio {ratio:.1f}x)."
+            )
 
         total_seat_change += seat_adj
 
@@ -617,33 +646,37 @@ async def export_capacity_plan(
     if format == "csv":
         output = io.StringIO()
         writer = csv.writer(output)
-        writer.writerow([
-            "District",
-            "State",
-            "Trade Name",
-            "NSQF Code",
-            "Current Seats",
-            "Active Vacancies",
-            "Seat Adjustment",
-            "Trainer Workshops",
-            "Equipment Priority",
-            "Investment Focus",
-            "Rationale",
-        ])
+        writer.writerow(
+            [
+                "District",
+                "State",
+                "Trade Name",
+                "NSQF Code",
+                "Current Seats",
+                "Active Vacancies",
+                "Seat Adjustment",
+                "Trainer Workshops",
+                "Equipment Priority",
+                "Investment Focus",
+                "Rationale",
+            ]
+        )
         for r in recs:
-            writer.writerow([
-                dist.name,
-                dist.state,
-                r.trade_name,
-                r.nsqf_code,
-                r.current_seats,
-                r.active_vacancies,
-                r.recommended_seat_adjustment,
-                r.recommended_trainer_workshops,
-                r.equipment_investment_priority,
-                r.investment_focus,
-                r.rationale,
-            ])
+            writer.writerow(
+                [
+                    dist.name,
+                    dist.state,
+                    r.trade_name,
+                    r.nsqf_code,
+                    r.current_seats,
+                    r.active_vacancies,
+                    r.recommended_seat_adjustment,
+                    r.recommended_trainer_workshops,
+                    r.equipment_investment_priority,
+                    r.investment_focus,
+                    r.rationale,
+                ]
+            )
 
         csv_content = output.getvalue()
         return Response(

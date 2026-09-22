@@ -153,4 +153,3 @@ class EmployerValidationListItem(BaseModel):
     parsed_by_llm: bool
     needs_manual_review: bool
     submitted_at: datetime
-

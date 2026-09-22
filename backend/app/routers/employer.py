@@ -116,4 +116,3 @@ async def get_my_validations(
     return await employer_service.list_my_validations(
         db=db, employer_user_id=employer_user_id
     )
-

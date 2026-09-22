@@ -169,13 +169,15 @@ async def planner_fixtures(db_session: AsyncSession):
         full_name="Test Panel Member",
         district_id=dist_a.id,
     )
-    db_session.add_all([
-        planner_user,
-        trainee_user,
-        institute_user,
-        employer_user,
-        panel_user,
-    ])
+    db_session.add_all(
+        [
+            planner_user,
+            trainee_user,
+            institute_user,
+            employer_user,
+            panel_user,
+        ]
+    )
     await db_session.commit()
 
     return {
@@ -264,9 +266,7 @@ async def test_planner_district_drilldown(
         assert len(data["trades"]) >= 2
 
         trade_1_row = next(
-            t
-            for t in data["trades"]
-            if t["trade_id"] == str(fixtures["trade_1"].id)
+            t for t in data["trades"] if t["trade_id"] == str(fixtures["trade_1"].id)
         )
         assert trade_1_row["gap_score"] == 68.0
         assert trade_1_row["alignment_score"] == 32.0

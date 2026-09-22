@@ -57,9 +57,7 @@ class DistrictTradeRow(BaseModel):
     trade_name: str
     nsqf_code: str
     gap_id: uuid.UUID | None = None
-    alignment_score: float = Field(
-        ..., description="Calculated as 100 - gap_score"
-    )
+    alignment_score: float = Field(..., description="Calculated as 100 - gap_score")
     gap_score: float
     gap_type: str | None = None
     gap_status: str | None = None
@@ -165,4 +163,3 @@ class CapacityPlanResponse(BaseModel):
     total_recommended_seat_change: int
     total_trainer_workshops: int
     recommendations: list[CapacityPlanRecommendation]
-
