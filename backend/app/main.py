@@ -49,10 +49,12 @@ app = FastAPI(
 
 # Attach rate limiter state
 app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, rate_limit_exceeded_handler)
 
-# Global sanitized exception handlers
-app.add_exception_handler(HTTPException, http_exception_handler)
+# Register standard rate limiter handler
+app.add_exception_handler(RateLimitExceeded, rate_limit_exceeded_handler)  # type: ignore[arg-type]
+
+# Register standard HTTP exception handler
+app.add_exception_handler(HTTPException, http_exception_handler)  # type: ignore[arg-type]
 app.add_exception_handler(Exception, global_exception_handler)
 
 # Request ID & latency tracing middleware

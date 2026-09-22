@@ -93,7 +93,7 @@ def compute_alignment_health(
 @router.get("/map", response_model=PlannerMapResponse)
 async def get_planner_map(
     db: Annotated[AsyncSession, Depends(get_db)],
-    current_user: Annotated[dict, Depends(require_role(UserRole.PLANNER.value))],
+    current_user: Annotated[dict[str, Any], Depends(require_role(UserRole.PLANNER.value))],
 ) -> PlannerMapResponse:
     """Return all districts with aggregated alignment-health metrics."""
     # 1. Fetch all districts
@@ -170,7 +170,7 @@ async def get_planner_map(
 async def get_district_drilldown(
     district_id: uuid.UUID,
     db: Annotated[AsyncSession, Depends(get_db)],
-    current_user: Annotated[dict, Depends(require_role(UserRole.PLANNER.value))],
+    current_user: Annotated[dict[str, Any], Depends(require_role(UserRole.PLANNER.value))],
 ) -> DistrictDetailResponse:
     """Return full trade-by-trade table for a specific district."""
     # 1. Verify district
@@ -202,7 +202,7 @@ async def get_district_drilldown(
         .where(Institute.district_id == district_id)
         .group_by(Course.trade_id)
     )
-    seats_by_trade = dict((await db.execute(seats_stmt)).all())
+    seats_by_trade: dict[uuid.UUID, int] = dict((await db.execute(seats_stmt)).tuples().all())
 
     ahi, _, cat = compute_alignment_health(gaps)
 
@@ -467,7 +467,7 @@ async def annotate_flag(
     flag_id: uuid.UUID,
     payload: FlagAnnotateRequest,
     db: Annotated[AsyncSession, Depends(get_db)],
-    current_user: Annotated[dict, Depends(require_role(UserRole.PLANNER.value))],
+    current_user: Annotated[dict[str, Any], Depends(require_role(UserRole.PLANNER.value))],
 ) -> FlagAnnotateResponse:
     """Save planner observation note and execute optional override on skill gap status."""
     gap = await db.get(SkillGap, flag_id)
@@ -552,7 +552,7 @@ async def export_capacity_plan(
     format: str = Query(
         "json", pattern="^(json|csv)$", description="Export format: 'json' or 'csv'"
     ),
-):
+) -> CapacityPlanResponse | Response:
     """Generate structured capacity recommendations (JSON or downloadable CSV)."""
     dist = await db.get(District, district_id)
     if not dist:
@@ -574,7 +574,7 @@ async def export_capacity_plan(
         .where(Institute.district_id == district_id)
         .group_by(Course.trade_id)
     )
-    seats_by_trade = dict((await db.execute(seats_stmt)).all())
+    seats_by_trade: dict[uuid.UUID, int] = dict((await db.execute(seats_stmt)).tuples().all())
 
     recs: list[CapacityPlanRecommendation] = []
     total_seat_change = 0
