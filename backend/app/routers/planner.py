@@ -550,7 +550,7 @@ async def annotate_flag(
 # =============================================================================
 # 5. GET /planner/export/capacity-plan
 # =============================================================================
-@router.get("/export/capacity-plan")
+@router.get("/export/capacity-plan", response_model=None)
 async def export_capacity_plan(
     district_id: uuid.UUID,
     db: Annotated[AsyncSession, Depends(get_db)],

@@ -9,8 +9,14 @@ import logging
 import math
 from typing import Any
 
-import numpy as np
-from sentence_transformers import SentenceTransformer
+try:
+    import numpy as np
+    from sentence_transformers import SentenceTransformer
+    HAS_NLP = True
+except ImportError:
+    np = None  # type: ignore
+    SentenceTransformer = None  # type: ignore
+    HAS_NLP = False
 
 from app.models.enums import GapType
 
@@ -168,7 +174,17 @@ class ScoringService:
     """Computes semantic similarity and gap score breakdowns."""
 
     def __init__(self, model_name: str = "all-MiniLM-L6-v2") -> None:
-        self.model = SentenceTransformer(model_name)
+        self.model_name = model_name
+        self.model: Any = None
+        # Cache embedded curriculum profiles to avoid recomputation
+        self._curriculum_embeddings: dict[str, Any] = {}
+
+    def _get_model(self) -> Any:
+        if self.model is None:
+            if not HAS_NLP:
+                raise RuntimeError("NLP dependencies not installed. Install with `pip install .[nlp]`")
+            self.model = SentenceTransformer(self.model_name)
+        return self.model
 
     def compute_similarity(
         self, curriculum_skills: list[str], market_skills: list[str]
@@ -180,7 +196,8 @@ class ScoringService:
         curriculum_text = ", ".join(curriculum_skills)
         market_text = ", ".join(market_skills)
 
-        embeddings = self.model.encode(
+        model = self._get_model()
+        embeddings = model.encode(
             [curriculum_text, market_text], normalize_embeddings=True
         )
         # Cosine similarity between two normalized vectors is the dot product

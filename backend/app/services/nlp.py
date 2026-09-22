@@ -14,8 +14,15 @@ Never calls the LLM for extraction or scoring.
 import logging
 from typing import Any, cast
 
-import spacy
-from spacy.pipeline import EntityRuler
+try:
+    import spacy
+    from spacy.pipeline import EntityRuler
+    HAS_NLP = True
+except ImportError:
+    HAS_NLP = False
+    spacy = None  # type: ignore
+    EntityRuler = None  # type: ignore
+
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -114,8 +121,15 @@ class NLPService:
     """Extracts vocational skills and tools from raw job descriptions."""
 
     def __init__(self) -> None:
-        self.nlp = spacy.load("en_core_web_sm")
-        self._setup_entity_ruler()
+        self.nlp: Any = None
+
+    def _get_nlp(self) -> Any:
+        if self.nlp is None:
+            if not HAS_NLP:
+                raise RuntimeError("NLP dependencies not installed. Install with `pip install .[nlp]`")
+            self.nlp = spacy.load("en_core_web_sm")
+            self._setup_entity_ruler()
+        return self.nlp
 
     def _setup_entity_ruler(self) -> None:
         """Add custom EntityRuler to spaCy pipeline with trade patterns."""
@@ -152,7 +166,8 @@ class NLPService:
                 "confidence": 0.0,
             }
 
-        doc = self.nlp(text)
+        nlp = self._get_nlp()
+        doc = nlp(text)
         extracted: dict[str, list[str]] = {}
         unique_skills: set[str] = set()
 
