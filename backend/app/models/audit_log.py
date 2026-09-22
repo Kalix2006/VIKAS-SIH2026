@@ -2,7 +2,10 @@
 
 import uuid
 from datetime import datetime
-from typing import Any
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from app.models.user import User
 
 import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import JSONB

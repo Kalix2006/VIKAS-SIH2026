@@ -10,9 +10,10 @@ import json
 import logging
 import time
 import uuid
+from collections.abc import Callable
 from contextvars import ContextVar
 from datetime import UTC, datetime
-from typing import Any, Callable
+from typing import Any
 
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request

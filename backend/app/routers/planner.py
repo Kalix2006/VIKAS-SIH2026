@@ -13,14 +13,14 @@ import io
 import math
 import uuid
 from datetime import UTC, datetime
-from typing import Annotated
+from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 from sqlalchemy import desc, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from app.core.deps import get_current_user, get_db, require_role
+from app.core.deps import get_db, require_role
 from app.models.course import Course
 from app.models.district import District
 from app.models.enums import GapStatus, GapType, OverrideStatus, UserRole
@@ -29,7 +29,6 @@ from app.models.institute import Institute
 from app.models.job_posting import JobPosting
 from app.models.skill_gap import SkillGap
 from app.models.trade import Trade
-from app.services.audit import record_audit_event
 from app.schemas.planner import (
     CapacityPlanRecommendation,
     CapacityPlanResponse,
@@ -42,6 +41,7 @@ from app.schemas.planner import (
     PlannerCompareResponse,
     PlannerMapResponse,
 )
+from app.services.audit import record_audit_event
 
 router = APIRouter(prefix="/planner", tags=["planner"])
 
@@ -295,12 +295,10 @@ async def get_district_drilldown(
 # =============================================================================
 @router.get("/compare", response_model=PlannerCompareResponse)
 async def compare_districts_for_trade(
-    district_ids: str = Query(
-        ..., description="Comma-separated IDs of two districts (A,B)"
-    ),
-    trade_id: uuid.UUID = Query(..., description="ID of trade to compare"),
-    db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(require_role(UserRole.PLANNER.value)),
+    district_ids: Annotated[str, Query(..., description="Comma-separated IDs of two districts (A,B)")],
+    trade_id: Annotated[uuid.UUID, Query(..., description="ID of trade to compare")],
+    db: Annotated[AsyncSession, Depends(get_db)],
+    current_user: Annotated[dict[str, Any], Depends(require_role(UserRole.PLANNER.value))],
 ) -> PlannerCompareResponse:
     """Compare a single trade across two districts."""
     id_list = [d.strip() for d in district_ids.split(",") if d.strip()]
@@ -313,11 +311,11 @@ async def compare_districts_for_trade(
     try:
         dist_a_id = uuid.UUID(id_list[0])
         dist_b_id = uuid.UUID(id_list[1])
-    except ValueError:
+    except ValueError as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid UUID in district_ids",
-        )
+        ) from e
 
     # Fetch trade
     trade = await db.get(Trade, trade_id)
@@ -524,11 +522,11 @@ async def annotate_flag(
 @router.get("/export/capacity-plan")
 async def export_capacity_plan(
     district_id: uuid.UUID,
+    db: Annotated[AsyncSession, Depends(get_db)],
+    current_user: Annotated[dict[str, Any], Depends(require_role(UserRole.PLANNER.value))],
     format: str = Query(
         "json", pattern="^(json|csv)$", description="Export format: 'json' or 'csv'"
     ),
-    db: AsyncSession = Depends(get_db),
-    current_user: dict = Depends(require_role(UserRole.PLANNER.value)),
 ):
     """Generate structured capacity recommendations (JSON or downloadable CSV)."""
     dist = await db.get(District, district_id)

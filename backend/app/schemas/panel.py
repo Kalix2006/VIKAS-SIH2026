@@ -6,7 +6,13 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from app.models.enums import GapType, PanelRoleType, ReviewDecision, ReviewTrack, VoteChoice
+from app.models.enums import (
+    GapType,
+    PanelRoleType,
+    ReviewDecision,
+    ReviewTrack,
+    VoteChoice,
+)
 
 
 class VoteRequest(BaseModel):

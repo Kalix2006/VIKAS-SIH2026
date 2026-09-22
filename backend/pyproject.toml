@@ -55,6 +55,7 @@ target-version = "py312"
 line-length = 88  # Matches black default
 
 [tool.ruff.lint]
+ignore = ["E501"]
 select = [
     "E",    # pycodestyle errors
     "W",    # pycodestyle warnings

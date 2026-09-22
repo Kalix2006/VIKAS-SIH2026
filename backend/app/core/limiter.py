@@ -5,6 +5,7 @@ for auth endpoints and quota-sensitive LLM endpoints (trainee chat).
 """
 
 from os import getenv
+
 from fastapi import Request, Response
 from slowapi import Limiter
 from slowapi.errors import RateLimitExceeded

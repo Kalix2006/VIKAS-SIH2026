@@ -12,12 +12,11 @@ import logging
 import re
 import uuid
 from collections import Counter
-from datetime import datetime, timezone
-from typing import Any
+from datetime import UTC, datetime
 
 import httpx
 from fastapi import HTTPException, status
-from sqlalchemy import desc, func, select
+from sqlalchemy import desc, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
@@ -28,7 +27,6 @@ from app.models.employer_validation import EmployerValidation
 from app.models.institute import Institute
 from app.models.job_posting import JobPosting
 from app.models.trade import Trade
-from app.models.trainee_profile import TraineeProfile
 from app.schemas.employer import (
     AggregateReadinessResponse,
     CompetencyMastery,
@@ -320,7 +318,7 @@ class EmployerService:
         # Fallback: Deterministic regex/keyword extraction from known trade domain
         fallback_skills: list[str] = []
         trade_skills = TRADE_DEFAULT_SKILLS.get(trade_name, {})
-        for cat, sk_list in trade_skills.items():
+        for _cat, sk_list in trade_skills.items():
             for sk in sk_list:
                 # check if any primary keyword appears in raw text
                 words = [w.lower() for w in re.split(r"[\s&/,]+", sk) if len(w) > 3]
@@ -378,7 +376,7 @@ class EmployerService:
             confirmed_skills=confirmed_skills_dict,
             raw_free_text=payload.raw_free_text,
             parsed_by_llm=parsed_by_llm,
-            submitted_at=datetime.now(timezone.utc),
+            submitted_at=datetime.now(UTC),
         )
 
         db.add(validation)
@@ -428,7 +426,7 @@ class EmployerService:
             confirmed_skills=signal_dict,
             raw_free_text=payload.notes,
             parsed_by_llm=False,
-            submitted_at=datetime.now(timezone.utc),
+            submitted_at=datetime.now(UTC),
         )
 
         db.add(validation_signal)

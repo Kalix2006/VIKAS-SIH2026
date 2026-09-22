@@ -4,6 +4,7 @@ Ensures no raw stack traces or internal DB errors leak to clients in production.
 """
 
 import uuid
+
 from fastapi import HTTPException, Request, Response
 from fastapi.responses import JSONResponse
 

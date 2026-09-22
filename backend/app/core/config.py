@@ -59,7 +59,7 @@ class Settings(BaseSettings):
     @property
     def cors_origins_list(self) -> list[str]:
         """Parse comma-separated CORS origins into a list.
-        
+
         Strictly forbids wildcard '*' in production mode.
         """
         origins = [
