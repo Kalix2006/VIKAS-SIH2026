@@ -10,13 +10,11 @@ Demonstrates:
 
 import asyncio
 import sys
-from httpx import AsyncClient, ASGITransport
+
+from httpx import ASGITransport, AsyncClient
 
 from app.main import app
-from app.db.session import async_session_maker
-from app.core.security import create_access_token
-from app.services.auth import login
-from app.core.config import settings
+
 
 async def main():
     print("=" * 80)

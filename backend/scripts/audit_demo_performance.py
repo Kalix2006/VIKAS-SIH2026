@@ -6,6 +6,7 @@ acceptable live demonstration thresholds (> 500ms or awkward loading).
 
 import asyncio
 import time
+
 from httpx import ASGITransport, AsyncClient
 
 from app.main import app

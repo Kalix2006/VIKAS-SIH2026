@@ -21,16 +21,15 @@ Run with:
 """
 
 import asyncio
+import sys
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
-import sys
-import uuid
 
 # Add backend directory to sys.path
 backend_dir = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(backend_dir))
 
-from sqlalchemy import delete, select
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.security import hash_password

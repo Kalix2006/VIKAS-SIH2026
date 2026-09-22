@@ -10,20 +10,18 @@ Tests:
    are blocked from planner-only write actions with 403 Forbidden.
 """
 
-import math
 import uuid
+
 import pytest
 from httpx import ASGITransport, AsyncClient
-from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.security import create_access_token
 from app.main import app
 from app.models.course import Course
 from app.models.district import District
-from app.models.enums import CourseStatus, GapStatus, GapType, OverrideStatus, UserRole
+from app.models.enums import CourseStatus, GapStatus, GapType, UserRole
 from app.models.institute import Institute
-from app.models.job_posting import JobPosting
 from app.models.skill_gap import SkillGap
 from app.models.trade import Trade
 from app.models.user import User

@@ -5,7 +5,6 @@ RBAC table in CLAUDE.md. Fails CI (exit code 1) if any route is unguarded
 or guarded incorrectly.
 """
 
-import inspect
 import sys
 from typing import Any
 

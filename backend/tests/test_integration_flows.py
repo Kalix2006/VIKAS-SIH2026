@@ -6,7 +6,6 @@ Exercises complete lifecycle flows against active database:
 """
 
 import uuid
-from datetime import UTC, datetime
 
 import pytest
 from httpx import AsyncClient
@@ -26,7 +25,6 @@ from app.models.enums import (
     VoteChoice,
 )
 from app.models.panel_member import PanelMember
-from app.models.panel_review import PanelReview
 from app.models.refresh_token import RefreshToken
 from app.models.skill_gap import SkillGap
 from app.models.trade import Trade

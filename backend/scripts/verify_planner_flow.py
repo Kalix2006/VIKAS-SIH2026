@@ -12,9 +12,11 @@ Demonstrates:
 
 import asyncio
 import sys
-from httpx import AsyncClient, ASGITransport
+
+from httpx import ASGITransport, AsyncClient
 
 from app.main import app
+
 
 async def main():
     print("=" * 80)
@@ -148,7 +150,7 @@ async def main():
             print(f"FAILED to export CSV capacity plan: {export_csv_res.text}")
             sys.exit(1)
         csv_text = export_csv_res.text
-        csv_lines = [l for l in csv_text.strip().split("\n") if l]
+        csv_lines = [line for line in csv_text.strip().split("\n") if line]
         print(f" -> [CSV] Header + {len(csv_lines)-1} data rows exported.")
         print(f"    * Header: {csv_lines[0]}")
         if len(csv_lines) > 1:

@@ -12,7 +12,8 @@ Tests:
 """
 
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
+
 import pytest
 from httpx import ASGITransport, AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -21,7 +22,6 @@ from app.core.security import create_access_token
 from app.main import app
 from app.models.course import Course
 from app.models.district import District
-from app.models.employer_validation import EmployerValidation
 from app.models.enums import CourseStatus, UserRole
 from app.models.institute import Institute
 from app.models.job_posting import JobPosting
@@ -78,7 +78,7 @@ async def employer_fixtures(db_session: AsyncSession):
             "skills": ["PLC Troubleshooting", "Solar Inverter Maintenance", "Earthing"],
             "tools": ["Multimeter", "Megger"],
         },
-        posted_at=datetime.now(timezone.utc),
+        posted_at=datetime.now(UTC),
     )
     db_session.add(posting)
     await db_session.flush()

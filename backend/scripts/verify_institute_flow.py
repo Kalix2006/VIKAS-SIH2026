@@ -1,17 +1,18 @@
 """End-to-end verification script for VIKAS Phase 5 Institute Admin workflow."""
 
 import asyncio
+
 import httpx
 from sqlalchemy import select
-from app.main import app
+
 from app.db.session import async_session_maker
+from app.main import app
 from app.models.course import Course
 from app.models.district import District
 from app.models.enums import CourseStatus, GapStatus, GapType
 from app.models.institute import Institute
 from app.models.skill_gap import SkillGap
 from app.models.trade import Trade
-from app.models.user import User
 
 
 async def setup_test_courses_and_gaps():
@@ -23,7 +24,7 @@ async def setup_test_courses_and_gaps():
                 select(Institute).where(Institute.name == "Government ITI Pune")
             )
         ).scalars().first()
-        beed_inst = (
+        _beed_inst = (
             await session.execute(
                 select(Institute).where(Institute.name == "Government ITI Beed")
             )
@@ -219,7 +220,7 @@ async def run_walkthrough():
         refresher_data = refresher_resp.json()
         print(f" -> Refresher Request Created: ID = {refresher_data['id']} | Status = {refresher_data['status']}")
         print(f"    Notes: \"{refresher_data['notes']}\"")
-        print(f"    Notification sent to district planners: True")
+        print("    Notification sent to district planners: True")
 
         # 6. Enrollment vs Demand Comparison
         print("\n[Step 6] Analyzing Enrollment vs Local Hiring Demand (GET /institute/enrollment-vs-demand)...")

@@ -15,6 +15,7 @@ from sqlalchemy.pool import NullPool
 
 from app.core.config import settings
 from app.core.deps import get_db
+from app.core.limiter import limiter
 from app.core.security import create_access_token, hash_password
 from app.main import app
 from app.models.district import District
@@ -43,7 +44,6 @@ async def override_get_db() -> AsyncIterator[AsyncSession]:
         yield session
 
 
-from app.core.limiter import limiter
 
 # Apply dependency override to app
 app.dependency_overrides[get_db] = override_get_db

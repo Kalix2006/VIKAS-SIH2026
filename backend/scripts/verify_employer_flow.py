@@ -14,7 +14,8 @@ Demonstrates:
 import asyncio
 import sys
 import time
-from httpx import AsyncClient, ASGITransport
+
+from httpx import ASGITransport, AsyncClient
 
 from app.main import app
 
@@ -84,9 +85,10 @@ async def main():
         print(f" -> District Scope: {district_id}")
 
         # Discover available trade ID directly from DB
+        from sqlalchemy import select
+
         from app.db.session import async_session_maker
         from app.models.trade import Trade
-        from sqlalchemy import select
 
         async with async_session_maker() as db:
             stmt = select(Trade)

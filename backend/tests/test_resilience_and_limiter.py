@@ -1,4 +1,5 @@
 from unittest.mock import patch
+
 from httpx import ASGITransport, AsyncClient
 
 from app.core.config import settings
@@ -31,19 +32,21 @@ async def test_global_exception_handler_sanitizes_errors_in_production() -> None
         transport=ASGITransport(app=app, raise_app_exceptions=False),
         base_url="http://test",
     ) as ac:
-        with patch.object(settings, "environment", "production"):
-            with patch("app.routers.auth.svc_login", side_effect=Exception("Database syntax error near 'SELECT * FROM secrets'")):
-                err_resp = await ac.post(
-                    "/auth/login",
-                    json={"email": "admin@vikas.gov", "password": "password123"},
-                )
-                assert err_resp.status_code == 500
-                err_data = err_resp.json()
-                assert "request_id" in err_data
-                assert err_data["code"] == "INTERNAL_SERVER_ERROR"
-                # Assert secret details are NOT leaked
-                assert "Database syntax error" not in err_data["detail"]
-                assert "An internal server error occurred" in err_data["detail"]
+        with patch.object(settings, "environment", "production"), patch(
+            "app.routers.auth.svc_login",
+            side_effect=Exception("Database syntax error near 'SELECT * FROM secrets'"),
+        ):
+            err_resp = await ac.post(
+                "/auth/login",
+                json={"email": "admin@vikas.gov", "password": "password123"},
+            )
+            assert err_resp.status_code == 500
+            err_data = err_resp.json()
+            assert "request_id" in err_data
+            assert err_data["code"] == "INTERNAL_SERVER_ERROR"
+            # Assert secret details are NOT leaked
+            assert "Database syntax error" not in err_data["detail"]
+            assert "An internal server error occurred" in err_data["detail"]
 
 
 async def test_auth_login_rate_limiting(client: AsyncClient) -> None:
