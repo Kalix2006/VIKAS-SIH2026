@@ -1,6 +1,8 @@
-"""Tests for NLP service trade-specific skill extraction using spaCy EntityRuler."""
+import pytest
 
-from app.services.nlp import nlp_service
+from app.services.nlp import HAS_NLP, nlp_service
+
+pytestmark = pytest.mark.skipif(not HAS_NLP, reason="NLP dependencies not installed")
 
 
 def test_extract_skills_electrician() -> None:

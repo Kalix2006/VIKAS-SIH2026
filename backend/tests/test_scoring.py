@@ -4,8 +4,14 @@ Every formula test validates exact manual mathematical derivations to guarantee
 that scoring logic is non-black-box and auditable for a technical government jury.
 """
 
+import pytest
+
 from app.models.enums import GapType
-from app.services.scoring import calculate_gap_score, scoring_service
+from app.services.scoring import (
+    HAS_NLP,
+    calculate_gap_score,
+    scoring_service,
+)
 
 
 def test_hand_computed_curriculum_drift() -> None:
@@ -145,6 +151,7 @@ def test_hand_computed_emerging_skill() -> None:
     assert breakdown["market_demand_factor"] == 0.6880
 
 
+@pytest.mark.skipif(not HAS_NLP, reason="NLP dependencies not installed")
 def test_semantic_similarity_computation() -> None:
     """Validate SentenceTransformer cosine similarity."""
     curriculum = ["conduit wiring", "earthing", "mcb circuit breaker"]

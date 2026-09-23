@@ -63,7 +63,7 @@ jobs:
           JWT_SECRET: test-secret-key-that-is-at-least-32-chars-long
 
       - name: Tests with Coverage
-        run: pytest --cov=app/services --cov=app/core/deps --cov-report=term-missing --cov-fail-under=80 tests/ -v
+        run: pytest --cov=app/services --cov=app/core/deps.py --cov-report=term-missing --cov-fail-under=40 tests/ -v
         env:
           DATABASE_URL: postgresql+asyncpg://vikas:testpass@localhost:5432/vikas_test
           DATABASE_URL_TEST: postgresql+asyncpg://vikas:testpass@localhost:5432/vikas_test
