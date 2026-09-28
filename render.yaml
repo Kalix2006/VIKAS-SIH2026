@@ -3,7 +3,7 @@ services:
     name: vikas-backend
     runtime: python
     region: oregon
-    plan: starter
+    plan: free
     rootDir: backend
     buildCommand: "pip install --upgrade pip && pip install -e \".[nlp]\" && python -m spacy download en_core_web_sm"
     startCommand: "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 2"
