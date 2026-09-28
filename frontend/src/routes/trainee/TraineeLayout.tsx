@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ThemeToggle } from "../../components/ThemeToggle";
 import { useAuth } from "../../lib/auth";
 import { CourseList } from "./CourseList";
 import { AlternativesView } from "./AlternativesView";
@@ -90,10 +91,12 @@ export function TraineeLayout() {
               <span className="text-[11px] text-slate-400">{user?.email}</span>
             </div>
 
+            <ThemeToggle />
+
             <button
               onClick={logout}
               title="Sign Out"
-              className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-colors"
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-100 hover:text-slate-800 dark:border-slate-700 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-slate-100 transition-colors"
             >
               <LogOut className="h-4 w-4" />
             </button>

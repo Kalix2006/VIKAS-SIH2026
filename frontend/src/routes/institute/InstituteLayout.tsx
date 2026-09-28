@@ -5,6 +5,7 @@ import {
   BarChart2,
   LogOut,
 } from "lucide-react";
+import { ThemeToggle } from "../../components/ThemeToggle";
 import { useAuth } from "../../lib/auth";
 import { FlagInbox } from "./FlagInbox";
 import { DriftDetailView } from "./DriftDetailView";
@@ -83,9 +84,11 @@ export const InstituteLayout: React.FC = () => {
                 </span>
               </div>
 
+              <ThemeToggle />
+
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-rose-600 transition-colors shadow-2xs"
+                className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-rose-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-rose-400 transition-colors shadow-2xs"
               >
                 <LogOut className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline">Logout</span>

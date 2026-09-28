@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, RequireRole } from "./lib/auth";
+import { ThemeProvider } from "./lib/theme";
 import { LoginRoute } from "./routes/login";
 import { TraineeLayout } from "./routes/trainee/TraineeLayout";
 import { InstituteLayout } from "./routes/institute/InstituteLayout";
@@ -10,8 +11,9 @@ import { EmployerDashboard } from "./routes/employer/EmployerDashboard";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
+    <ThemeProvider>
+      <BrowserRouter>
+        <AuthProvider>
         <Routes>
           {/* Public Login Route */}
           <Route path="/login" element={<LoginRoute />} />
@@ -71,7 +73,8 @@ export default function App() {
           {/* Default redirect to login or trainee portal */}
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
-      </AuthProvider>
-    </BrowserRouter>
+        </AuthProvider>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }

@@ -1,5 +1,6 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { LogOut, ShieldCheck, MapPin } from "lucide-react";
+import { ThemeToggle } from "../../components/ThemeToggle";
 import { useAuth } from "../../lib/auth";
 
 export function EmployerLayout() {
@@ -45,10 +46,12 @@ export function EmployerLayout() {
                 </div>
               </div>
 
+              <ThemeToggle />
+
               <button
                 type="button"
                 onClick={handleLogout}
-                className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors"
+                className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-slate-100 transition-colors"
                 title="Sign out"
               >
                 <LogOut className="h-3.5 w-3.5" />
