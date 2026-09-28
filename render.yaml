@@ -24,7 +24,7 @@ services:
       - key: JWT_SECRET_FALLBACK
         sync: false
       - key: CORS_ORIGINS
-        value: "https://vikas-workforce.vercel.app,https://vikas.gov.in"
+        value: "https://vikas-sih-2026.vercel.app,https://vikas-sih-2026-o8wg66u7c-kalix2006s-projects.vercel.app"
       - key: GROQ_API_KEY
         sync: false
       - key: ADZUNA_APP_ID
