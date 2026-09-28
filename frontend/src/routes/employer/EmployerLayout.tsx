@@ -13,9 +13,9 @@ export function EmployerLayout() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
-      {/* Executive Top Navigation Header */}
-      <header className="sticky top-0 z-30 border-b border-slate-200 bg-white shadow-xs">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#060913] text-slate-900 dark:text-slate-100 font-sans">
+      {/* Executive Top Navigation Header with Neon Accent */}
+      <header className="sticky top-0 z-30 border-b border-slate-200 dark:border-cyan-500/30 bg-white dark:bg-[#0b1120]/95 shadow-xs dark:shadow-[0_4px_25px_rgba(0,0,0,0.8),0_1px_15px_rgba(6,182,212,0.2)]">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
             <img src="/vikas-logo.jpg" alt="VIKAS" className="h-10 w-10 rounded-xl object-contain" />

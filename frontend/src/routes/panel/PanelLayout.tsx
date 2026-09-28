@@ -33,9 +33,9 @@ export const PanelLayout: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50/50 flex flex-col font-sans">
-      {/* Top Navigation Bar */}
-      <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur-md">
+    <div className="min-h-screen bg-slate-50/50 dark:bg-[#060913] text-slate-900 dark:text-slate-100 flex flex-col font-sans">
+      {/* Top Navigation Bar with Neon Accent */}
+      <header className="sticky top-0 z-40 border-b border-slate-200 dark:border-emerald-500/30 bg-white/95 dark:bg-[#0b1120]/95 backdrop-blur-md dark:shadow-[0_4px_25px_rgba(0,0,0,0.8),0_1px_15px_rgba(16,185,129,0.2)]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Logo and Platform Title */}

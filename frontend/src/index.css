@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  /* shadcn/ui CSS variables — new-york style with slate base color */
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
@@ -28,25 +27,25 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 224 71% 4%;
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
+    --card: 224 71% 7%;
     --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
+    --popover: 224 71% 6%;
     --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
+    --primary: 199 89% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217.2 32.6% 14%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
+    --muted: 217.2 32.6% 14%;
     --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
+    --accent: 217.2 32.6% 16%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 199 89% 48% / 0.25;
+    --input: 199 89% 48% / 0.2;
+    --ring: 199 89% 48%;
   }
 }
 
@@ -58,3 +57,163 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* =========================================================
+   COMPREHENSIVE DARK THEME & NEON BORDER STYLES
+   ========================================================= */
+
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #060913 !important;
+  color: #f1f5f9 !important;
+}
+
+/* Transform all light background surfaces into sleek cyber dark */
+.dark .bg-white {
+  background-color: #0b1120 !important;
+}
+
+.dark .bg-slate-50,
+.dark .bg-slate-50\/50,
+.dark .bg-slate-50\/80,
+.dark .bg-slate-100 {
+  background-color: #060913 !important;
+}
+
+.dark .bg-slate-900 {
+  background-color: #0b1120 !important;
+}
+
+/* Glowing neon border lines for cards & containers */
+.dark .border-slate-100,
+.dark .border-slate-200 {
+  border-color: rgba(56, 189, 248, 0.2) !important;
+}
+
+.dark .border-slate-300 {
+  border-color: rgba(56, 189, 248, 0.3) !important;
+}
+
+.dark .text-slate-900 {
+  color: #f8fafc !important;
+}
+
+.dark .text-slate-800,
+.dark .text-slate-700 {
+  color: #e2e8f0 !important;
+}
+
+.dark .text-slate-600,
+.dark .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+/* Glowing neon feel on cards & boxes */
+.dark .rounded-2xl.border,
+.dark .rounded-xl.border,
+.dark .rounded-lg.border {
+  border-color: rgba(56, 189, 248, 0.25) !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.85), 0 0 15px -1px rgba(6, 182, 212, 0.15) !important;
+}
+
+.dark .rounded-2xl.border:hover,
+.dark .rounded-xl.border:hover {
+  border-color: rgba(56, 189, 248, 0.45) !important;
+  box-shadow: 0 4px 25px -2px rgba(0, 0, 0, 0.9), 0 0 20px 0px rgba(6, 182, 212, 0.25) !important;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Sticky headers with neon bottom accent glow */
+.dark header {
+  background-color: rgba(11, 17, 32, 0.95) !important;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.35) !important;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.8), 0 2px 15px rgba(6, 182, 212, 0.2) !important;
+}
+
+/* Dark mode inputs with neon cyan focus ring */
+.dark input:not([type="checkbox"]):not([type="radio"]),
+.dark select,
+.dark textarea {
+  background-color: #070c18 !important;
+  border-color: rgba(56, 189, 248, 0.3) !important;
+  color: #f8fafc !important;
+}
+
+.dark input:not([type="checkbox"]):not([type="radio"]):focus,
+.dark select:focus,
+.dark textarea:focus {
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.45) !important;
+  outline: none !important;
+}
+
+/* Dark mode badges & pills with neon borders & soft glows */
+.dark .bg-emerald-50,
+.dark .bg-emerald-100,
+.dark .bg-emerald-50\/70 {
+  background-color: rgba(6, 78, 59, 0.35) !important;
+  color: #34d399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+}
+
+.dark .bg-indigo-50,
+.dark .bg-indigo-100,
+.dark .bg-indigo-50\/70 {
+  background-color: rgba(49, 46, 129, 0.35) !important;
+  color: #a5b4fc !important;
+  border: 1px solid rgba(99, 102, 241, 0.4) !important;
+}
+
+.dark .bg-amber-50,
+.dark .bg-amber-100,
+.dark .bg-amber-50\/70 {
+  background-color: rgba(120, 53, 15, 0.35) !important;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.4) !important;
+}
+
+.dark .bg-blue-50,
+.dark .bg-blue-100,
+.dark .bg-blue-50\/70 {
+  background-color: rgba(30, 58, 138, 0.35) !important;
+  color: #60a5fa !important;
+  border: 1px solid rgba(6, 182, 212, 0.4) !important;
+}
+
+.dark .bg-purple-50,
+.dark .bg-purple-100,
+.dark .bg-purple-50\/70 {
+  background-color: rgba(88, 28, 135, 0.35) !important;
+  color: #c084fc !important;
+  border: 1px solid rgba(168, 85, 247, 0.4) !important;
+}
+
+/* Neon utilities */
+.neon-border-cyan {
+  border: 1px solid rgba(6, 182, 212, 0.5) !important;
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.25) !important;
+}
+
+.neon-border-emerald {
+  border: 1px solid rgba(16, 185, 129, 0.5) !important;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.25) !important;
+}
+
+.neon-border-indigo {
+  border: 1px solid rgba(99, 102, 241, 0.5) !important;
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.25) !important;
+}
+
+.neon-border-amber {
+  border: 1px solid rgba(245, 158, 11, 0.5) !important;
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.25) !important;
+}
+
+.neon-border-purple {
+  border: 1px solid rgba(168, 85, 247, 0.5) !important;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.25) !important;
+}
+

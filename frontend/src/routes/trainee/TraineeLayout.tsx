@@ -56,9 +56,9 @@ export function TraineeLayout() {
   ];
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50 text-slate-900 pb-20 sm:pb-0">
-      {/* Top Header */}
-      <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur-sm">
+    <div className="flex min-h-screen flex-col bg-slate-50 dark:bg-[#060913] text-slate-900 dark:text-slate-100 pb-20 sm:pb-0">
+      {/* Top Header with Neon Accent */}
+      <header className="sticky top-0 z-30 border-b border-slate-200 dark:border-cyan-500/30 bg-white/95 dark:bg-[#0b1120]/95 backdrop-blur-sm dark:shadow-[0_4px_25px_rgba(0,0,0,0.8),0_1px_15px_rgba(6,182,212,0.2)]">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
           {/* Logo & Platform Name */}
           <div className="flex items-center gap-3">

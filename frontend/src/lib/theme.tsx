@@ -29,13 +29,8 @@ const ThemeContext = createContext<ThemeContextValue>({
 function getInitialTheme(): Theme {
   const stored = localStorage.getItem("vikas_theme");
   if (stored === "dark" || stored === "light") return stored;
-  // Fall back to system preference (guarded: jsdom doesn't implement matchMedia)
-  if (
-    typeof window.matchMedia === "function" &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-  )
-    return "dark";
-  return "light";
+  // Default to dark theme for full dark aesthetic
+  return "dark";
 }
 
 function applyTheme(theme: Theme) {
