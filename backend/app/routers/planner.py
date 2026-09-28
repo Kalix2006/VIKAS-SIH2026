@@ -380,7 +380,7 @@ async def compare_districts_for_trade(
             .order_by(desc(JobPosting.posted_at))
             .limit(10)
         )
-        postings = (await db.execute(postings_stmt)).scalars().all()
+        postings: list[Any] = list((await db.execute(postings_stmt)).scalars().all())
 
         top_skills: list[str] = []
         for p in postings:
