@@ -53,7 +53,13 @@ def do_run_migrations(connection) -> None:  # type: ignore[no-untyped-def]
 
 async def run_async_migrations() -> None:
     """Run migrations in async mode using asyncpg."""
-    connectable = create_async_engine(settings.database_url)
+    connectable = create_async_engine(
+        settings.database_url,
+        connect_args={
+            "prepared_statement_cache_size": 0,
+            "statement_cache_size": 0,
+        },
+    )
 
     async with connectable.connect() as connection:
         await connection.run_sync(do_run_migrations)
