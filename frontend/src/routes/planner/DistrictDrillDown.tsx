@@ -220,7 +220,7 @@ export const DistrictDrillDown: React.FC = () => {
       </div>
 
       {/* Controls & Filter Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white dark:bg-[#0b1120] p-3 rounded-2xl border border-slate-200 dark:border-cyan-500/30 shadow-2xs">
         {/* Search */}
         <div className="relative flex-1 max-w-sm">
           <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
@@ -229,16 +229,16 @@ export const DistrictDrillDown: React.FC = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search trades or NSQF code..."
-            className="w-full rounded-xl border border-slate-200 pl-9 pr-3 py-1.5 text-xs focus:border-indigo-500 focus:outline-none shadow-2xs"
+            className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#070c18] text-slate-900 dark:text-white pl-9 pr-3 py-1.5 text-xs focus:border-indigo-500 dark:focus:border-cyan-400 focus:outline-none shadow-2xs"
           />
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl text-xs font-semibold">
+        <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-900/90 p-1 rounded-xl text-xs font-semibold">
           <button
             onClick={() => setFilterType("all")}
             className={`px-3 py-1 rounded-lg transition-colors ${
-              filterType === "all" ? "bg-white text-slate-900 shadow-2xs font-bold" : "text-slate-600"
+              filterType === "all" ? "bg-white dark:bg-[#0b1120] text-slate-900 dark:text-white shadow-2xs font-bold border border-transparent dark:border-cyan-500/40" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
             }`}
           >
             All Trades ({data.trades.length})
@@ -247,8 +247,8 @@ export const DistrictDrillDown: React.FC = () => {
             onClick={() => setFilterType("divergent")}
             className={`px-3 py-1 rounded-lg transition-colors ${
               filterType === "divergent"
-                ? "bg-white text-rose-800 shadow-2xs font-bold"
-                : "text-slate-600"
+                ? "bg-white dark:bg-[#0b1120] text-rose-800 dark:text-rose-400 shadow-2xs font-bold border border-transparent dark:border-rose-500/40"
+                : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
             }`}
           >
             Drifted / Critical ({data.trades.filter((t) => t.gap_score >= 50).length})
@@ -257,8 +257,8 @@ export const DistrictDrillDown: React.FC = () => {
             onClick={() => setFilterType("healthy")}
             className={`px-3 py-1 rounded-lg transition-colors ${
               filterType === "healthy"
-                ? "bg-white text-emerald-800 shadow-2xs font-bold"
-                : "text-slate-600"
+                ? "bg-white dark:bg-[#0b1120] text-emerald-800 dark:text-emerald-400 shadow-2xs font-bold border border-transparent dark:border-emerald-500/40"
+                : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
             }`}
           >
             Healthy ({data.trades.filter((t) => t.gap_score < 50).length})

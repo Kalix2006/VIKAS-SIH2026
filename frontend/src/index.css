@@ -71,74 +71,253 @@ html.dark body {
   color: #f1f5f9 !important;
 }
 
-/* Transform all light background surfaces into sleek cyber dark */
-.dark .bg-white {
+/* 1. All white and light surfaces become deep dark cyber surfaces */
+.dark .bg-white,
+.dark [class*="bg-white/"],
+.dark [class*="bg-white "] {
   background-color: #0b1120 !important;
 }
 
 .dark .bg-slate-50,
-.dark .bg-slate-50\/50,
-.dark .bg-slate-50\/80,
-.dark .bg-slate-100 {
+.dark .bg-slate-100,
+.dark .bg-slate-200,
+.dark .bg-gray-50,
+.dark .bg-gray-100,
+.dark [class*="bg-slate-50/"],
+.dark [class*="bg-slate-100/"],
+.dark [class*="bg-slate-200/"] {
   background-color: #060913 !important;
 }
 
-.dark .bg-slate-900 {
-  background-color: #0b1120 !important;
+.dark .bg-slate-900,
+.dark .bg-slate-950 {
+  background-color: #090e1c !important;
 }
 
-/* Glowing neon border lines for cards & containers */
-.dark .border-slate-100,
-.dark .border-slate-200 {
-  border-color: rgba(56, 189, 248, 0.2) !important;
+/* Neutralize gradients fading to white or light backgrounds */
+.dark [class*="to-white"] {
+  --tw-gradient-to: #0b1120 !important;
+}
+.dark [class*="from-white"] {
+  --tw-gradient-from: #0b1120 !important;
+}
+.dark [class*="via-white"] {
+  --tw-gradient-stops: var(--tw-gradient-from), #0b1120, var(--tw-gradient-to) !important;
 }
 
-.dark .border-slate-300 {
-  border-color: rgba(56, 189, 248, 0.3) !important;
-}
-
-.dark .text-slate-900 {
+/* 2. Universal Text Color Correction for Dark Theme */
+.dark .text-slate-900,
+.dark .text-slate-950,
+.dark .text-gray-900,
+.dark .text-gray-950 {
   color: #f8fafc !important;
 }
 
 .dark .text-slate-800,
-.dark .text-slate-700 {
+.dark .text-slate-700,
+.dark .text-gray-800,
+.dark .text-gray-700 {
   color: #e2e8f0 !important;
 }
 
 .dark .text-slate-600,
-.dark .text-slate-500 {
+.dark .text-gray-600 {
+  color: #cbd5e1 !important;
+}
+
+.dark .text-slate-500,
+.dark .text-gray-500 {
   color: #94a3b8 !important;
 }
 
-/* Glowing neon feel on cards & boxes */
+.dark .text-slate-400 {
+  color: #64748b !important;
+}
+
+/* Neon readable color variants for dark backgrounds */
+.dark .text-emerald-600,
+.dark .text-emerald-700,
+.dark .text-emerald-800,
+.dark .text-emerald-900 {
+  color: #34d399 !important;
+}
+
+.dark .text-indigo-600,
+.dark .text-indigo-700,
+.dark .text-indigo-800,
+.dark .text-indigo-900,
+.dark .text-indigo-950 {
+  color: #a5b4fc !important;
+}
+
+.dark .text-amber-600,
+.dark .text-amber-700,
+.dark .text-amber-800,
+.dark .text-amber-900,
+.dark .text-amber-950 {
+  color: #fbbf24 !important;
+}
+
+.dark .text-blue-600,
+.dark .text-blue-700,
+.dark .text-blue-800,
+.dark .text-blue-900 {
+  color: #60a5fa !important;
+}
+
+.dark .text-rose-600,
+.dark .text-rose-700,
+.dark .text-rose-800,
+.dark .text-rose-900 {
+  color: #fb7185 !important;
+}
+
+.dark .text-purple-600,
+.dark .text-purple-700,
+.dark .text-purple-800,
+.dark .text-purple-900 {
+  color: #c084fc !important;
+}
+
+.dark .text-teal-600,
+.dark .text-teal-700,
+.dark .text-teal-800 {
+  color: #2dd4bf !important;
+}
+
+/* 3. Cards, Boxes & Neon Glowing Borders */
+.dark .border-slate-100,
+.dark .border-slate-200,
+.dark .border-slate-300,
+.dark .border-gray-100,
+.dark .border-gray-200 {
+  border-color: rgba(56, 189, 248, 0.22) !important;
+}
+
+.dark .rounded-3xl.border,
 .dark .rounded-2xl.border,
 .dark .rounded-xl.border,
-.dark .rounded-lg.border {
+.dark .rounded-lg.border,
+.dark [data-testid*="-card"],
+.dark [data-testid*="-container"] {
   border-color: rgba(56, 189, 248, 0.25) !important;
   box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.85), 0 0 15px -1px rgba(6, 182, 212, 0.15) !important;
 }
 
+.dark .rounded-3xl.border:hover,
 .dark .rounded-2xl.border:hover,
-.dark .rounded-xl.border:hover {
+.dark .rounded-xl.border:hover,
+.dark [data-testid*="-card"]:hover {
   border-color: rgba(56, 189, 248, 0.45) !important;
-  box-shadow: 0 4px 25px -2px rgba(0, 0, 0, 0.9), 0 0 20px 0px rgba(6, 182, 212, 0.25) !important;
+  box-shadow: 0 4px 25px -2px rgba(0, 0, 0, 0.9), 0 0 22px 0px rgba(6, 182, 212, 0.25) !important;
   transition: all 0.2s ease-in-out;
 }
 
-/* Sticky headers with neon bottom accent glow */
-.dark header {
-  background-color: rgba(11, 17, 32, 0.95) !important;
-  border-bottom: 1px solid rgba(56, 189, 248, 0.35) !important;
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.8), 0 2px 15px rgba(6, 182, 212, 0.2) !important;
+/* Colored Neon Borders */
+.dark .border-emerald-100,
+.dark .border-emerald-200,
+.dark .border-emerald-300 {
+  border-color: rgba(16, 185, 129, 0.45) !important;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.18) !important;
 }
 
-/* Dark mode inputs with neon cyan focus ring */
+.dark .border-indigo-100,
+.dark .border-indigo-200,
+.dark .border-indigo-300 {
+  border-color: rgba(99, 102, 241, 0.45) !important;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.18) !important;
+}
+
+.dark .border-amber-100,
+.dark .border-amber-200,
+.dark .border-amber-300 {
+  border-color: rgba(245, 158, 11, 0.45) !important;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.18) !important;
+}
+
+.dark .border-rose-100,
+.dark .border-rose-200,
+.dark .border-rose-300 {
+  border-color: rgba(244, 63, 94, 0.45) !important;
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.18) !important;
+}
+
+.dark .border-blue-100,
+.dark .border-blue-200,
+.dark .border-blue-300 {
+  border-color: rgba(6, 182, 212, 0.45) !important;
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.18) !important;
+}
+
+.dark .border-purple-100,
+.dark .border-purple-200,
+.dark .border-purple-300 {
+  border-color: rgba(168, 85, 247, 0.45) !important;
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.18) !important;
+}
+
+/* 4. Tinted Cards & Badges with Dark Neon Look */
+.dark .bg-emerald-50,
+.dark .bg-emerald-100,
+.dark [class*="bg-emerald-50/"] {
+  background-color: rgba(6, 78, 59, 0.35) !important;
+  color: #34d399 !important;
+  border-color: rgba(16, 185, 129, 0.45) !important;
+}
+
+.dark .bg-indigo-50,
+.dark .bg-indigo-100,
+.dark [class*="bg-indigo-50/"] {
+  background-color: rgba(49, 46, 129, 0.35) !important;
+  color: #a5b4fc !important;
+  border-color: rgba(99, 102, 241, 0.45) !important;
+}
+
+.dark .bg-amber-50,
+.dark .bg-amber-100,
+.dark [class*="bg-amber-50/"],
+.dark [class*="bg-orange-50/"] {
+  background-color: rgba(120, 53, 15, 0.35) !important;
+  color: #fbbf24 !important;
+  border-color: rgba(245, 158, 11, 0.45) !important;
+}
+
+.dark .bg-blue-50,
+.dark .bg-blue-100,
+.dark [class*="bg-blue-50/"],
+.dark [class*="bg-sky-50/"] {
+  background-color: rgba(30, 58, 138, 0.35) !important;
+  color: #60a5fa !important;
+  border-color: rgba(6, 182, 212, 0.45) !important;
+}
+
+.dark .bg-purple-50,
+.dark .bg-purple-100,
+.dark [class*="bg-purple-50/"] {
+  background-color: rgba(88, 28, 135, 0.35) !important;
+  color: #c084fc !important;
+  border-color: rgba(168, 85, 247, 0.45) !important;
+}
+
+.dark .bg-rose-50,
+.dark .bg-rose-100,
+.dark [class*="bg-rose-50/"] {
+  background-color: rgba(136, 19, 55, 0.35) !important;
+  color: #fb7185 !important;
+  border-color: rgba(244, 63, 94, 0.45) !important;
+}
+
+/* 5. Inputs, Selects, & Form Controls */
 .dark input:not([type="checkbox"]):not([type="radio"]),
 .dark select,
 .dark textarea {
   background-color: #070c18 !important;
   border-color: rgba(56, 189, 248, 0.3) !important;
+  color: #f8fafc !important;
+}
+
+.dark select option {
+  background-color: #0b1120 !important;
   color: #f8fafc !important;
 }
 
@@ -150,70 +329,51 @@ html.dark body {
   outline: none !important;
 }
 
-/* Dark mode badges & pills with neon borders & soft glows */
-.dark .bg-emerald-50,
-.dark .bg-emerald-100,
-.dark .bg-emerald-50\/70 {
-  background-color: rgba(6, 78, 59, 0.35) !important;
-  color: #34d399 !important;
-  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+/* 6. Code Snippets & Formulas */
+.dark code {
+  background-color: #070c18 !important;
+  color: #38bdf8 !important;
+  border-color: rgba(56, 189, 248, 0.35) !important;
 }
 
-.dark .bg-indigo-50,
-.dark .bg-indigo-100,
-.dark .bg-indigo-50\/70 {
-  background-color: rgba(49, 46, 129, 0.35) !important;
-  color: #a5b4fc !important;
-  border: 1px solid rgba(99, 102, 241, 0.4) !important;
+/* 7. Tables & Lists */
+.dark thead,
+.dark thead tr,
+.dark thead th {
+  background-color: #070c18 !important;
+  color: #94a3b8 !important;
+  border-color: rgba(56, 189, 248, 0.25) !important;
 }
 
-.dark .bg-amber-50,
-.dark .bg-amber-100,
-.dark .bg-amber-50\/70 {
-  background-color: rgba(120, 53, 15, 0.35) !important;
-  color: #fbbf24 !important;
-  border: 1px solid rgba(245, 158, 11, 0.4) !important;
+.dark tbody tr {
+  border-color: rgba(56, 189, 248, 0.12) !important;
 }
 
-.dark .bg-blue-50,
-.dark .bg-blue-100,
-.dark .bg-blue-50\/70 {
-  background-color: rgba(30, 58, 138, 0.35) !important;
-  color: #60a5fa !important;
-  border: 1px solid rgba(6, 182, 212, 0.4) !important;
+.dark tbody tr:hover td {
+  background-color: rgba(15, 23, 42, 0.75) !important;
 }
 
-.dark .bg-purple-50,
-.dark .bg-purple-100,
-.dark .bg-purple-50\/70 {
-  background-color: rgba(88, 28, 135, 0.35) !important;
-  color: #c084fc !important;
-  border: 1px solid rgba(168, 85, 247, 0.4) !important;
+/* 8. Leaflet Map in Dark Cyber Theme */
+.dark .leaflet-popup-content-wrapper,
+.dark .leaflet-popup-tip {
+  background-color: #0b1120 !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(56, 189, 248, 0.45) !important;
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.35) !important;
 }
 
-/* Neon utilities */
-.neon-border-cyan {
-  border: 1px solid rgba(6, 182, 212, 0.5) !important;
-  box-shadow: 0 0 15px rgba(6, 182, 212, 0.25) !important;
+.dark .leaflet-container {
+  background-color: #060913 !important;
 }
 
-.neon-border-emerald {
-  border: 1px solid rgba(16, 185, 129, 0.5) !important;
-  box-shadow: 0 0 15px rgba(16, 185, 129, 0.25) !important;
+.dark .leaflet-tile {
+  filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7) !important;
 }
 
-.neon-border-indigo {
-  border: 1px solid rgba(99, 102, 241, 0.5) !important;
-  box-shadow: 0 0 15px rgba(99, 102, 241, 0.25) !important;
-}
-
-.neon-border-amber {
-  border: 1px solid rgba(245, 158, 11, 0.5) !important;
-  box-shadow: 0 0 15px rgba(245, 158, 11, 0.25) !important;
-}
-
-.neon-border-purple {
-  border: 1px solid rgba(168, 85, 247, 0.5) !important;
-  box-shadow: 0 0 15px rgba(168, 85, 247, 0.25) !important;
+/* 9. Header Glow */
+.dark header {
+  background-color: rgba(11, 17, 32, 0.95) !important;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.35) !important;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.8), 0 2px 15px rgba(6, 182, 212, 0.2) !important;
 }
 

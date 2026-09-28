@@ -92,7 +92,7 @@ export function AlternativesView({ courseId, onBack }: AlternativesViewProps) {
           {/* Empathetic Career Guidance Hero Banner */}
           <div
             data-testid="guidance-card"
-            className="rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 via-orange-50/30 to-amber-50/50 p-6 shadow-sm"
+            className="rounded-2xl border border-amber-200 dark:border-amber-500/40 bg-gradient-to-br from-amber-50 via-orange-50/30 to-amber-50/50 dark:from-amber-950/30 dark:via-orange-950/20 dark:to-amber-950/30 p-6 shadow-sm dark:shadow-[0_0_25px_rgba(245,158,11,0.15)]"
           >
             <div className="flex items-start gap-4">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-600 text-white shadow-md shadow-amber-200">

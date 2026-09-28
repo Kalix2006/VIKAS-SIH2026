@@ -48,8 +48,8 @@ export function EmployerDashboard() {
           onClick={() => setActiveTab("validate")}
           className={`flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-bold transition-all ${
             activeTab === "validate"
-              ? "bg-blue-600 text-white shadow-sm"
-              : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+              ? "bg-blue-600 dark:bg-cyan-500 text-white dark:text-slate-950 shadow-sm dark:shadow-[0_0_15px_rgba(6,182,212,0.4)]"
+              : "bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
           }`}
         >
           <CheckCircle2 className="h-4 w-4" />
@@ -61,8 +61,8 @@ export function EmployerDashboard() {
           onClick={() => setActiveTab("signal")}
           className={`flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-bold transition-all ${
             activeTab === "signal"
-              ? "bg-blue-600 text-white shadow-sm"
-              : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+              ? "bg-blue-600 dark:bg-cyan-500 text-white dark:text-slate-950 shadow-sm dark:shadow-[0_0_15px_rgba(6,182,212,0.4)]"
+              : "bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
           }`}
         >
           <Briefcase className="h-4 w-4" />
@@ -74,8 +74,8 @@ export function EmployerDashboard() {
           onClick={() => setActiveTab("readiness")}
           className={`flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-bold transition-all ${
             activeTab === "readiness"
-              ? "bg-blue-600 text-white shadow-sm"
-              : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+              ? "bg-blue-600 dark:bg-cyan-500 text-white dark:text-slate-950 shadow-sm dark:shadow-[0_0_15px_rgba(6,182,212,0.4)]"
+              : "bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
           }`}
         >
           <BarChart3 className="h-4 w-4" />
@@ -87,8 +87,8 @@ export function EmployerDashboard() {
           onClick={() => setActiveTab("history")}
           className={`flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-bold transition-all ${
             activeTab === "history"
-              ? "bg-blue-600 text-white shadow-sm"
-              : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+              ? "bg-blue-600 dark:bg-cyan-500 text-white dark:text-slate-950 shadow-sm dark:shadow-[0_0_15px_rgba(6,182,212,0.4)]"
+              : "bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
           }`}
         >
           <History className="h-4 w-4" />

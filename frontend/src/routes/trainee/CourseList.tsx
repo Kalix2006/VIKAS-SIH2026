@@ -172,8 +172,8 @@ export function CourseList({ onSelectCourseAlternatives }: CourseListProps) {
                 data-testid={`course-card-${course.id}`}
                 className={`relative flex flex-col justify-between rounded-xl border p-5 shadow-sm transition-all hover:shadow-md ${
                   isFlagged
-                    ? "border-amber-200 bg-gradient-to-b from-amber-50/40 to-white"
-                    : "border-slate-200 bg-white"
+                    ? "border-amber-200 dark:border-amber-500/40 bg-gradient-to-b from-amber-50/40 to-white dark:from-amber-950/25 dark:to-[#0b1120] hover:shadow-[0_0_20px_rgba(245,158,11,0.2)]"
+                    : "border-slate-200 dark:border-cyan-500/30 bg-white dark:bg-[#0b1120] hover:shadow-[0_0_20px_rgba(6,182,212,0.2)]"
                 }`}
               >
                 <div>
