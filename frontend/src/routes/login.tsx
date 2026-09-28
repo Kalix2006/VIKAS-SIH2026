@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../lib/auth";
-import { Sparkles, ArrowRight, ShieldCheck, UserCheck } from "lucide-react";
+import { Sparkles, ArrowRight, UserCheck } from "lucide-react";
 
 export function LoginRoute() {
   const {
@@ -72,9 +72,11 @@ export function LoginRoute() {
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-slate-50 to-slate-100 p-4 font-sans">
       <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-xl sm:p-8">
         <div className="text-center">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-md shadow-emerald-200">
-            <ShieldCheck className="h-6 w-6" />
-          </div>
+          <img
+            src="/vikas-logo.jpg"
+            alt="VIKAS Logo"
+            className="mx-auto h-24 w-24 rounded-xl object-contain"
+          />
           <h1 className="mt-4 text-2xl font-bold tracking-tight text-slate-900">
             VIKAS Platform
           </h1>

@@ -12,7 +12,6 @@ import {
   Bell,
   LogOut,
   MapPin,
-  Compass,
 } from "lucide-react";
 
 type TraineeTab = "courses" | "alternatives" | "skills" | "chat" | "alerts";
@@ -62,9 +61,7 @@ export function TraineeLayout() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
           {/* Logo & Platform Name */}
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-xs">
-              <Compass className="h-5 w-5" />
-            </div>
+            <img src="/vikas-logo.jpg" alt="VIKAS" className="h-9 w-9 rounded-xl object-contain" />
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-base font-bold tracking-tight text-slate-900">

@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import { Building2, LogOut, ShieldCheck, MapPin } from "lucide-react";
+import { LogOut, ShieldCheck, MapPin } from "lucide-react";
 import { useAuth } from "../../lib/auth";
 
 export function EmployerLayout() {
@@ -17,9 +17,7 @@ export function EmployerLayout() {
       <header className="sticky top-0 z-30 border-b border-slate-200 bg-white shadow-xs">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white shadow-sm shadow-blue-200">
-              <Building2 className="h-5 w-5" />
-            </div>
+            <img src="/vikas-logo.jpg" alt="VIKAS" className="h-10 w-10 rounded-xl object-contain" />
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-base font-black tracking-tight text-slate-900">VIKAS</span>

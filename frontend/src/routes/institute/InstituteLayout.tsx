@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import {
-  Building2,
   CheckSquare,
   BarChart2,
   LogOut,
@@ -29,9 +28,7 @@ export const InstituteLayout: React.FC = () => {
             {/* Logo and Platform Title */}
             <div className="flex items-center gap-4">
               <Link to="/institute" className="flex items-center gap-2.5">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-tr from-indigo-700 to-indigo-500 text-white shadow-md shadow-indigo-100">
-                  <Building2 className="h-5 w-5" />
-                </div>
+                <img src="/vikas-logo.jpg" alt="VIKAS" className="h-10 w-10 rounded-xl object-contain" />
                 <div>
                   <span className="text-base font-black tracking-tight text-slate-900 block leading-tight">
                     VIKAS <span className="text-indigo-600 font-medium text-xs ml-1">INSTITUTE</span>

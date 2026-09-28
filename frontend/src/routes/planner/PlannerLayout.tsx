@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import {
-  Compass,
   Map,
   ArrowLeftRight,
   LogOut,
@@ -29,9 +28,7 @@ export const PlannerLayout: React.FC = () => {
             {/* Logo and Platform Title */}
             <div className="flex items-center gap-4">
               <Link to="/planner" className="flex items-center gap-2.5">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-tr from-amber-600 to-amber-500 text-white shadow-md shadow-amber-100">
-                  <Compass className="h-5 w-5" />
-                </div>
+                <img src="/vikas-logo.jpg" alt="VIKAS" className="h-10 w-10 rounded-xl object-contain" />
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-base font-black tracking-tight text-slate-900 block leading-tight">
